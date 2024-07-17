@@ -1,0 +1,7 @@
+0.7
+2020.2
+May 22 2024
+18:54:44
+/home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.sim/sim_1/behav/xsim/glbl.v,1708598507,verilog,,,,glbl,,,,,,,,
+/home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/fixed_point_adder.v,1721244134,verilog,,/home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/tb_fixed_point_adder.v,,fixed_point_adder,,,,,,,,
+/home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/tb_fixed_point_adder.v,1721244704,verilog,,,,tb_fixed_point_adder,,,,,,,,

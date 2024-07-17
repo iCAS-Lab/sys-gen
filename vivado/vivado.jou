@@ -1,0 +1,81 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Wed Jul 17 14:05:56 2024
+# Process ID: 5620
+# Current directory: /home/s7117/Repos/SpikeTPU/vivado
+# Command line: vivado .
+# Log file: /home/s7117/Repos/SpikeTPU/vivado/vivado.log
+# Journal file: /home/s7117/Repos/SpikeTPU/vivado/vivado.jou
+# Running On        :s7117-ftl
+# Platform          :Pop
+# Operating System  :Pop!_OS 22.04 LTS
+# Processor Detail  :AMD Ryzen 7 7840U w/ Radeon  780M Graphics
+# CPU Frequency     :2276.030 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :65106 MB
+# Swap memory       :85898 MB
+# Total Virtual     :151005 MB
+# Available Virtual :148292 MB
+#-----------------------------------------------------------
+start_gui
+create_project spiketpu /home/s7117/Repos/SpikeTPU/vivado/spiketpu -part xczu7ev-ffvc1156-2-e
+set_property board_part xilinx.com:zcu104:part0:1.1 [current_project]
+file mkdir /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new
+close [ open /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/adder.v w ]
+add_files /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/adder.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_files -from_files /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/fixed_point_adder.v -to_files /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/adder.v -filesets [get_filesets *]
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.srcs/sources_1/new/tb_fixed_point_adder.v
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source tb_fixed_point_adder.tcl
+relaunch_sim
+relaunch_sim
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+set_property -name {xsim.simulate.runtime} -value {10ns} -objects [get_filesets sim_1]
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+close_sim
+launch_simulation
+source tb_fixed_point_adder.tcl
+run 1 ns
+run 1 ns
+save_wave_config {/home/s7117/Repos/SpikeTPU/results/tb_fixed_point_adder_behav.wcfg}
+add_files -fileset sim_1 -norecurse /home/s7117/Repos/SpikeTPU/results/tb_fixed_point_adder_behav.wcfg
+set_property xsim.view /home/s7117/Repos/SpikeTPU/results/tb_fixed_point_adder_behav.wcfg [get_filesets sim_1]
+close_sim
