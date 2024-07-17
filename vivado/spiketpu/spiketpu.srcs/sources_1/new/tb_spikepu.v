@@ -18,30 +18,27 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-module tb_fixed_point_adder;
+module tb_spikepu;
     reg clk;
     reg rstn;
-    reg in_spike;
-    reg in_polarity;
-    reg [15:0] in_weight;
-    wire [15:0] membrane_potential;
-    integer seed = 1;
+    reg [15:0] in_membrane_potential;
+    reg [15:0] threshold;
+    wire out_spike;
+    integer seed = 123;
 
-    fixed_point_adder fxp_add (
+    spikepu spu (
         .clk (clk),
         .rstn (rstn),
-        .in_spike (in_spike),
-        .in_polarity (in_polarity),
-        .in_weight (in_weight),
-        .membrane_potential (membrane_potential)
+        .in_membrane_potential (in_membrane_potential),
+        .out_spike (out_spike),
+        .threshold (threshold)
     );
 
     always #1 clk = ~clk;
 
     always @ (posedge clk) begin
-        in_polarity <= $random(seed);
-        in_spike <= $random(seed);
-        in_weight <= $random%16384;
+        in_membrane_potential <= $random%16384;
+        threshold <= 14000;
     end
 
     initial begin

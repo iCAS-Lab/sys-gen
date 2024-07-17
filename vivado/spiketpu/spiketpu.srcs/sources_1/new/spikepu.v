@@ -20,27 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module fixed_point_adder(
+module spikepu(
     input clk,
     input rstn,
-    input in_spike,
-    input in_polarity,
-    input [15:0] in_weight,
-    output reg[15:0] membrane_potential
+    input [15:0] in_membrane_potential,
+    input [15:0] threshold,
+    output reg out_spike
 );
 
     always @ (posedge clk) begin
-        if (! rstn) begin
-            membrane_potential <= 0;
-        end
-        else if (in_spike) begin
-            if (in_polarity) begin
-                membrane_potential <= membrane_potential + in_weight;
-            end
-            else
-                membrane_potential <= membrane_potential - in_weight;
+        if (in_membrane_potential >= threshold) begin
+            out_spike <= 1;
         end
         else
-            membrane_potential <= membrane_potential;
+            out_spike <= 0;
     end
 endmodule
