@@ -1,0 +1,35 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Wed Jul 17 19:11:08 2024
+# Process ID: 99072
+# Current directory: /home/s7117/Repos/SpikeTPU/vivado
+# Command line: vivado .
+# Log file: /home/s7117/Repos/SpikeTPU/vivado/vivado.log
+# Journal file: /home/s7117/Repos/SpikeTPU/vivado/vivado.jou
+# Running On        :s7117-ftl
+# Platform          :Pop
+# Operating System  :Pop!_OS 22.04 LTS
+# Processor Detail  :AMD Ryzen 7 7840U w/ Radeon  780M Graphics
+# CPU Frequency     :400.000 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :65106 MB
+# Swap memory       :85898 MB
+# Total Virtual     :151005 MB
+# Available Virtual :145396 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/s7117/Repos/SpikeTPU/vivado/spiketpu/spiketpu.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+open_wave_config /home/s7117/Repos/SpikeTPU/results/tb_fixed_point_adder_behav.wcfg
+open_wave_config /home/s7117/Repos/SpikeTPU/vivado/spiketpu/tb_spikepu_behav.wcfg
+source tb_spikepu.tcl
+run 1 ns
+run 1 ns
+run 1 ns
+save_wave_config {/home/s7117/Repos/SpikeTPU/vivado/spiketpu/tb_spikepu_behav.wcfg}
+close_sim

@@ -25,8 +25,8 @@ module fixed_point_adder(
     input rstn,
     input in_spike,
     input in_polarity,
-    input [15:0] in_weight,
-    output reg[15:0] membrane_potential
+    input signed [15:0] in_weight,
+    output reg signed [15:0] membrane_potential
 );
 
     always @ (posedge clk) begin

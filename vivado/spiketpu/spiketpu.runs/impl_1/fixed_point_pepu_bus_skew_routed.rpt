@@ -1,0 +1,17 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
+| Date              : Wed Jul 17 21:00:51 2024
+| Host              : s7117-ftl running 64-bit Pop!_OS 22.04 LTS
+| Command           : report_bus_skew -warn_on_violation -file fixed_point_pepu_bus_skew_routed.rpt -pb fixed_point_pepu_bus_skew_routed.pb -rpx fixed_point_pepu_bus_skew_routed.rpx
+| Design            : fixed_point_pepu
+| Device            : xczu7ev-ffvc1156
+| Speed File        : -2  PRODUCTION 1.30 05-15-2022
+| Design State      : Routed
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bus Skew Report
+
+No bus skew constraints
+

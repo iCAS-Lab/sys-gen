@@ -21,8 +21,8 @@
 module tb_spikepu;
     reg clk;
     reg rstn;
-    reg [15:0] in_membrane_potential;
-    reg [15:0] threshold;
+    reg signed [15:0] in_membrane_potential;
+    reg signed [15:0] threshold;
     wire out_spike;
     integer seed = 123;
 

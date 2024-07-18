@@ -1,7 +1,7 @@
 Vivado Simulator v2024.1
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: /opt/Xilinx/2024.1/Vivado/2024.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_spikepu_behav xil_defaultlib.tb_spikepu xil_defaultlib.glbl -log elaborate.log 
+Running: /opt/Xilinx/2024.1/Vivado/2024.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_combined_pe_pu_behav xil_defaultlib.tb_combined_pe_pu xil_defaultlib.glbl -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
@@ -9,7 +9,9 @@ Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.fixed_point_adder
 Compiling module xil_defaultlib.spikepu
-Compiling module xil_defaultlib.tb_spikepu
+Compiling module xil_defaultlib.fixed_point_pepu
+Compiling module xil_defaultlib.tb_combined_pe_pu
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_spikepu_behav
+Built simulation snapshot tb_combined_pe_pu_behav

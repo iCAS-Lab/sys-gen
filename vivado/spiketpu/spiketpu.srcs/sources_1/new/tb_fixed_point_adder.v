@@ -23,8 +23,9 @@ module tb_fixed_point_adder;
     reg rstn;
     reg in_spike;
     reg in_polarity;
-    reg [15:0] in_weight;
-    wire [15:0] membrane_potential;
+    reg signed [15:0] in_weight;
+    wire signed [15:0] membrane_potential;
+    
     integer seed = 1;
 
     fixed_point_adder fxp_add (
@@ -41,7 +42,11 @@ module tb_fixed_point_adder;
     always @ (posedge clk) begin
         in_polarity <= $random(seed);
         in_spike <= $random(seed);
-        in_weight <= $random%16384;
+        // -2^(8-1) = 128 => 16'b10000000_00000000
+        // 16'b01111111_11111111 = 127.99609375
+        // Approximately choose numbers that would fit in
+        // signed 16-bit fixed point with 8 integer and 8 fractional
+        in_weight <= $random%127;
     end
 
     initial begin
