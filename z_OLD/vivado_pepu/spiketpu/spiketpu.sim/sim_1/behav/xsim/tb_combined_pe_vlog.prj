@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../spiketpu.ip_user_files/ipstatic" \
+"../../../../spiketpu.srcs/sources_1/new/combined_pe.v" \
+"../../../../spiketpu.srcs/sources_1/new/tb_combined_pe.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
