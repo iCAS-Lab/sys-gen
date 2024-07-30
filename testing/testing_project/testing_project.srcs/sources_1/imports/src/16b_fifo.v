@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module 16b_fifo #(parameter DEPTH=8, DATA_WIDTH=16) (
+module sync_16b_fifo #(parameter DEPTH=8, DATA_WIDTH=16) (
     input clk, rstn,
     input w_en, r_en,
     input [DATA_WIDTH-1:0] in_weight,
@@ -28,30 +28,28 @@ module 16b_fifo #(parameter DEPTH=8, DATA_WIDTH=16) (
     output full, empty
 );
 
-reg [$clog2(DEPTH)] w_ptr, r_ptr;
-reg [DATA_WIDTH-1:0] fifo[DEPTH];
-
-    // Reset
-    always @ (posedge clk) begin
-        if (! rstn) begin
-            w_ptr <= 0;
-            r_ptr <= 0;
-            weight_out <= 0;
-        end
-    end
+    reg [$clog2(DEPTH)-1:0] w_ptr, r_ptr;
+    reg [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
 
     // Write enabled and not full
     always @ (posedge clk) begin
-        if (w_en & ! full) begin
-            fifo[w_ptr] <= data_in;
+        if (! rstn) begin
+            w_ptr <= 0;
+        end
+        else if (w_en & ! full) begin
+            fifo[w_ptr] <= in_weight;
             w_ptr <= w_ptr + 1;
         end
     end
 
     // Read enabled and not empty
     always @ (posedge clk) begin
-        if (r_en & ! empty) begin
-            data_out <= fifo[r_ptr];
+        if (! rstn) begin
+            out_weight <= 0;
+            r_ptr <= 0;
+        end
+        else if (r_en & ! empty) begin
+            out_weight <= fifo[r_ptr];
             r_ptr <= r_ptr + 1;
         end
     end

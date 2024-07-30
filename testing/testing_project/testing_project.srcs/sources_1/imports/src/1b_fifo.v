@@ -16,11 +16,11 @@
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// https://vlsiverify.com/verilog/verilog-codes/synchronous-fifo/
+// 
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module 16b_fifo #(parameter DEPTH=8, DATA_WIDTH=16) (
+module sync_1b_fifo #(parameter DEPTH=8, DATA_WIDTH=1) (
     input clk, rstn,
     input w_en, r_en,
     input [DATA_WIDTH-1:0] in_weight,

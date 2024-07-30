@@ -1,0 +1,8 @@
+0.7
+2020.2
+May 22 2024
+19:03:11
+C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.sim/sim_1/behav/xsim/glbl.v,1708598507,verilog,,,,glbl,,,,,,,,
+C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/fifo.v,1722297016,verilog,,C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/integer_mac_pe.v,,fifo,,,,,,,,
+C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/integer_mac_pe.v,1722294174,verilog,,C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/systolic_array_1x1.v,,integer_mac_pe,,,,,,,,
+C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/systolic_array_1x1.v,1722295291,verilog,,,,systolic_array_1x1,,,,,,,,
