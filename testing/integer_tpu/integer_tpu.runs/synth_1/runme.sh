@@ -41,4 +41,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log systolic_array_2x2.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source systolic_array_2x2.tcl
+EAStep vivado -log design_1_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
