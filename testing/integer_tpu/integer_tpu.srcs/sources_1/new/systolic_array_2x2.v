@@ -24,7 +24,7 @@ module systolic_array_2x2 #(parameter DATA_WIDTH=16) (
 
 // Controll signals
 wire r_en0_w, r_en1_w, r_en0_i, r_en1_i;
-wire w_en1_w, w_en2_w, w_en0_i, w_en1_i;
+wire w_en0_w, w_en1_w, w_en0_i, w_en1_i;
 wire full0_w, full1_w, full0_i, full1_i;
 wire empty0_w, empty1_w, empty0_i, empty1_i;
 
@@ -59,7 +59,7 @@ fifo weight_fifo0 (
     .w_en (w_en0_w), .r_en (r_en0_w),
     .in_data (test_weight0),
     .out_data (weight_wires0),
-    .full (full0), .empty(empty0)
+    .full (full0_w), .empty(empty0_w)
 );
 
 fifo weight_fifo1 (
@@ -67,7 +67,7 @@ fifo weight_fifo1 (
     .w_en (w_en1_w), .r_en (r_en1_w),
     .in_data (test_weight1),
     .out_data (weight_wires1),
-    .full (full1), .empty(empty1)
+    .full (full1_w), .empty(empty1_w)
 );
 
 fifo ifmap_fifo0 (

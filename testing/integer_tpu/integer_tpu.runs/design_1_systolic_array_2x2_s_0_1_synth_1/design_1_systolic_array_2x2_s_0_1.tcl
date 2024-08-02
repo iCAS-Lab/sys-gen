@@ -56,8 +56,12 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "design_1_systolic_array_2x2_s_0_1_synth_1" START { ROLLUP_AUTO }
+set_param power.BramSDPPropagationFix 1
+set_param power.enableUnconnectedCarry8PinPower 1
+set_param power.enableCarry8RouteBelPower 1
 set_param checkpoint.writeSynthRtdsInDcp 1
-set_msg_config -id {HDL-1065} -limit 10000
+set_param power.enableLutRouteBelPower 1
+set_param synth.incrementalSynthesisCache C:/Users/S7117/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-23904-S7117-Evolution/incrSyn
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000
 set_param project.vivado.isBlockSynthRun true
@@ -85,7 +89,7 @@ read_verilog -library xil_defaultlib {
   C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/integer_mac_pe.v
   C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/new/systolic_array_2x2_syn.v
 }
-read_ip -quiet c:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/bd/design_1/ip/design_1_systolic_array_2x2_s_0_1/design_1_systolic_array_2x2_s_0_1.xci
+read_ip -quiet C:/Users/S7117/Repos/Spike-TPU/testing/integer_tpu/integer_tpu.srcs/sources_1/bd/design_1/ip/design_1_systolic_array_2x2_s_0_1/design_1_systolic_array_2x2_s_0_1.xci
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

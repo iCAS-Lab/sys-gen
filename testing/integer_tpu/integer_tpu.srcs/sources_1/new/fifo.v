@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module fifo #(parameter DEPTH=8, DATA_WIDTH=16) (
+module fifo #(parameter DEPTH=32, DATA_WIDTH=16) (
     input clk, rstn,
     input w_en, r_en,
     input [DATA_WIDTH-1:0] in_data,
