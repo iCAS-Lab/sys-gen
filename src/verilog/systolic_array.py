@@ -40,14 +40,14 @@ class SystolicArray(VerilogModule):
                 # Row FIFO Inputs
                 f'\tinput [DATA_WIDTH-1:0] in_row_{i},\n'
                 + f'\tinput {self.row_fifo_prefix}_{i}_r_en, '
-                + f'{self.row_fifo_prefix}_{i}_w_en\n'
+                + f'{self.row_fifo_prefix}_{i}_w_en,\n'
             )
         for j in range(self.config.COLS):
             verilog += (
                 # Column FIFO Inputs
                 f'\tinput [DATA_WIDTH-1:0] in_col_{j},\n'
                 + f'\tinput {self.col_fifo_prefix}_{j}_r_en, '
-                + f'{self.col_fifo_prefix}_{j}_w_en\n'
+                + f'{self.col_fifo_prefix}_{j}_w_en,\n'
             )
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):

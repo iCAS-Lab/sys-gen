@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-13 19:46:40.883716
+// Create Date: 2024-08-13 19:54:04.231911
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -13,17 +13,17 @@
 module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 	input clk, rstn,
 	input [DATA_WIDTH-1:0] in_row_0,
-	input row_fifo_0_r_en, row_fifo_0_w_en
+	input row_fifo_0_r_en, row_fifo_0_w_en,
 	input [DATA_WIDTH-1:0] in_row_1,
-	input row_fifo_1_r_en, row_fifo_1_w_en
+	input row_fifo_1_r_en, row_fifo_1_w_en,
 	input [DATA_WIDTH-1:0] in_row_2,
-	input row_fifo_2_r_en, row_fifo_2_w_en
+	input row_fifo_2_r_en, row_fifo_2_w_en,
 	input [DATA_WIDTH-1:0] in_col_0,
-	input col_fifo_0_r_en, col_fifo_0_w_en
+	input col_fifo_0_r_en, col_fifo_0_w_en,
 	input [DATA_WIDTH-1:0] in_col_1,
-	input col_fifo_1_r_en, col_fifo_1_w_en
+	input col_fifo_1_r_en, col_fifo_1_w_en,
 	input [DATA_WIDTH-1:0] in_col_2,
-	input col_fifo_2_r_en, col_fifo_2_w_en
+	input col_fifo_2_r_en, col_fifo_2_w_en,
 	output signed [DATA_WIDTH-1:0] out_data_0_0,
 	output signed [DATA_WIDTH-1:0] out_data_0_1,
 	output signed [DATA_WIDTH-1:0] out_data_0_2,
