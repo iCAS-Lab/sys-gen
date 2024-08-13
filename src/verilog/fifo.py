@@ -5,7 +5,8 @@
 from pathlib import Path
 
 # Local libs
-from config import Config
+from generics.verilog_module import VerilogModule
+from utils.config import Config
 ################################################################################
 # Base verilog code
 MODULE_NAME = 'fifo'
@@ -18,7 +19,7 @@ MODULE_IO = """
     output full, empty
 );
 """
-MODULE_CONTENTS = """
+MODULE_DEFINITION = """
     reg [$clog2(DEPTH)-1:0] w_ptr, r_ptr;
     reg [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
 
@@ -50,45 +51,43 @@ MODULE_CONTENTS = """
     assign empty = (w_ptr == r_ptr);
 """
 ################################################################################
-class FIFO:
+class FIFO(VerilogModule):
     def __init__(self, config: Config):
-        self.config = config
-        self.verilog = self.update_module()
-
-    def write(self, module_path: Path):
-        with open(module_path, 'w') as f:
-            f.write(self.config.HEADER)
-            f.write(self.verilog)
+        super().__init__(config=config, module_name=MODULE_NAME)
     
-    def update_module(self):
+    def generate_module(self):
         verilog = ''
         verilog += (
             f'module {MODULE_NAME} #(parameter DEPTH={self.config.FIFO_DEPTH}, '
             + f'DATA_WIDTH={self.config.DATA_WIDTH}) '
         )
-        verilog += MODULE_CONTENTS
+        verilog += MODULE_IO
+        verilog += MODULE_DEFINITION
         verilog += self.config.ENDMODULE
         return verilog
     
-    def generate(
+    def generate_instance(
             self,
             name,
             row_id='X',
             col_id='X',
             in_data=None,
         ):
-        out_data = f'fifo_out_{row_id}_{col_id}'
-        full = f'fifo_full_{row_id}_{col_id}'
-        empty = f'fifo_empty_{row_id}_{col_id}'
+        # Select index
+        idx = row_id if row_id != 'X' else col_id
+        out_data = f'{name}_{idx}_out'
+        full = f'{name}_{idx}_full'
+        empty = f'{name}_{idx}_empty'
         instance_string = (
-            f'\tfifo fifo_{name}_{row_id}_{col_id} (\n'
+            f'\tfifo {name}_{idx} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
-            + f'\t\t.w_en (w_en_{row_id}_{col_id}),\n'
-            + f'\t\t.r_en (r_en_{row_id}_{col_id}),\n'
+            + f'\t\t.w_en ({name}_{idx}_w_en),\n'
+            + f'\t\t.r_en ({name}_{idx}_r_en),\n'
             + f'\t\t.in_data ({in_data}),\n'
             + f'\t\t.out_data ({out_data}),\n'
-            + f'\t\t.full ({full}), .empty({empty})\n'
+            + f'\t\t.full ({full}),\n'
+            + f'\t\t.empty({empty})\n'
             + f'\t);\n'
         )
-        return instance_string, out_data
+        return instance_string

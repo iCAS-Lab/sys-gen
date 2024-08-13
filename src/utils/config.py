@@ -16,12 +16,12 @@ class Config:
         # Configurations
         self.DATA_WIDTH=16
         self.FIFO_DEPTH=8
-        self.ROWS=32
-        self.COLS=32
+        self.ROWS=3
+        self.COLS=3
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
-        self.MODULE_PATH = Path.parent / 'generated_verilog'
+        self.MODULE_PATH = Path.cwd().parent / 'generated_verilog'
 
         
         # Verilog heading options
@@ -35,7 +35,9 @@ class Config:
 
         # Styling
         self.LINE_LENGTH = 80
-        self.COMMENT_LINE = '/' * self.LINE_LENGTH
+        self.COMMENT = '//'
+        self.COMMENT_LINE = self.COMMENT * 40
+        self.HALF_COMMENT_LINE = self.COMMENT * 20
 
         # Generate the verilog heading
         self.HEADER = ''
@@ -48,20 +50,32 @@ class Config:
     def update_header(self):
         """Update the header to be used at the beginning of each verilog module.
         """
-        self.HEADER = f"""
-        {self.TIMESCALE}
-        {self.COMMENT_LINE}
-        // Company: {self.COMPANY}
-        // Engineer: {self.ENGINEER}
-        // 
-        // Create Date: {self.DATE}
-        // Target Devices: {self.TARGET_DEVICES} 
-        // Tool Versions: {self.TOOL_VERSION}
-        // Description: {self.DESCRIPTION}
-        //
-        // Additional Comments:
-        {self.COMMENT_LINE}
-        """
+        self.HEADER = (
+            f'{self.TIMESCALE}\n'
+            f'{self.COMMENT_LINE}\n'
+            f'// Company: {self.COMPANY}\n'
+            f'// Engineer: {self.ENGINEER}\n'
+            f'//\n'
+            f'// Create Date: {self.DATE}\n'
+            f'// Target Devices: {self.TARGET_DEVICES}\n'
+            f'// Tool Versions: {self.TOOL_VERSION}\n'
+            f'// Description: {self.DESCRIPTION}\n'
+            f'//\n'
+            f'// Additional Comments:\n'
+            f'{self.COMMENT_LINE}\n'
+        )
+    
+    def section_comment(self, num_tabs: int, comment):
+        indentation = '\t'*num_tabs
+        divider = (
+            indentation + self.COMMENT * (self.LINE_LENGTH // (num_tabs+2)) + '\n'
+        )
+        sec_comment = (
+            divider
+            + indentation + self.COMMENT + ' ' + comment + '\n'
+            + divider
+        )
+        return sec_comment
 
     def __iter__(self):
         pass
