@@ -64,6 +64,10 @@ class SystolicArray(VerilogModule):
         # Instantiate FIFOs
         verilog = self.config.section_comment(1, 'FIFO Instantiations')
         for i in range(self.config.ROWS):
+            verilog += (
+                f'\twire signed [DATA_WIDTH-1:0] {self.row_fifo_prefix}_'
+                + f'{i}_out;\n'
+            )
             verilog += self.fifo_generator.generate_instance(
                     self.row_fifo_prefix,
                     row_id=i,
@@ -72,6 +76,10 @@ class SystolicArray(VerilogModule):
 
         # Instantiate FIFO connections
         for j in range(self.config.ROWS):
+            verilog += (
+                f'\twire signed [DATA_WIDTH-1:0] {self.col_fifo_prefix}_'
+                + f'{j}_out;\n'
+            )
             verilog += self.fifo_generator.generate_instance(
                     self.col_fifo_prefix,
                     col_id=j,

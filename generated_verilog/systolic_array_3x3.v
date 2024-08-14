@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-13 20:05:47.794048
+// Create Date: 2024-08-13 21:27:16.857993
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -37,6 +37,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 	////////////////////////////////////////////////////
 	// FIFO Instantiations
 	////////////////////////////////////////////////////
+	wire signed [DATA_WIDTH-1:0] row_fifo_0_out;
 	fifo row_fifo_0 (
 		.clk (clk),
 		.rstn (rstn),
@@ -47,6 +48,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 		.full (row_fifo_0_full),
 		.empty(row_fifo_0_empty)
 	);
+	wire signed [DATA_WIDTH-1:0] row_fifo_1_out;
 	fifo row_fifo_1 (
 		.clk (clk),
 		.rstn (rstn),
@@ -57,6 +59,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 		.full (row_fifo_1_full),
 		.empty(row_fifo_1_empty)
 	);
+	wire signed [DATA_WIDTH-1:0] row_fifo_2_out;
 	fifo row_fifo_2 (
 		.clk (clk),
 		.rstn (rstn),
@@ -67,6 +70,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 		.full (row_fifo_2_full),
 		.empty(row_fifo_2_empty)
 	);
+	wire signed [DATA_WIDTH-1:0] col_fifo_0_out;
 	fifo col_fifo_0 (
 		.clk (clk),
 		.rstn (rstn),
@@ -77,6 +81,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 		.full (col_fifo_0_full),
 		.empty(col_fifo_0_empty)
 	);
+	wire signed [DATA_WIDTH-1:0] col_fifo_1_out;
 	fifo col_fifo_1 (
 		.clk (clk),
 		.rstn (rstn),
@@ -87,6 +92,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 		.full (col_fifo_1_full),
 		.empty(col_fifo_1_empty)
 	);
+	wire signed [DATA_WIDTH-1:0] col_fifo_2_out;
 	fifo col_fifo_2 (
 		.clk (clk),
 		.rstn (rstn),
