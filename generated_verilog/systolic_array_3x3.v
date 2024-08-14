@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-13 19:54:04.231911
+// Create Date: 2024-08-13 20:05:47.794048
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -32,7 +32,7 @@ module systolic_array_3x3 #(parameter DEPTH=8, DATA_WIDTH=16) (
 	output signed [DATA_WIDTH-1:0] out_data_1_2,
 	output signed [DATA_WIDTH-1:0] out_data_2_0,
 	output signed [DATA_WIDTH-1:0] out_data_2_1,
-	output signed [DATA_WIDTH-1:0] out_data_2_2,
+	output signed [DATA_WIDTH-1:0] out_data_2_2
 );
 	////////////////////////////////////////////////////
 	// FIFO Instantiations

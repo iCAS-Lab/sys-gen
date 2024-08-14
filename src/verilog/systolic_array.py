@@ -54,7 +54,10 @@ class SystolicArray(VerilogModule):
                 verilog += (
                     f'\toutput signed [DATA_WIDTH-1:0] out_data_{i}_{j},\n'
                 )
-        verilog += ');\n'
+            if i == self.config.ROWS - 1:
+                verilog = verilog[:-2]
+
+        verilog += '\n);\n'
         return verilog
 
     def generate_fifos(self):
