@@ -4,14 +4,14 @@
 # Local Libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
-from verilog.integer_mac_pe import IntegerMACPE
+from verilog.spikepe import SpikingPE
 from verilog.fifo import FIFO
 ################################################################################
-MODULE_NAME = 'systolic_array'
+MODULE_NAME = 'spiking_systolic_array'
 ################################################################################
-class SystolicArray(VerilogModule):
+class SpikingSystolicArray(VerilogModule):
     def __init__(self, config: Config):
-        self.mac_generator = IntegerMACPE(config)
+        self.pe_generator = SpikingPE(config)
         self.fifo_generator = FIFO(config)
         self.row_fifo_prefix = 'row_fifo'
         self.col_fifo_prefix = 'col_fifo'
@@ -32,13 +32,15 @@ class SystolicArray(VerilogModule):
         verilog += (
             f'\tinput clk, rstn,\n'
         )
+        # Single bit row wires to inputs of FIFOs
         for i in range(self.config.ROWS):
             verilog += (
                 # Row FIFO Inputs
-                f'\tinput [DATA_WIDTH-1:0] in_row_{i},\n'
+                f'\tinput in_row_{i},\n' # One bit
                 + f'\tinput {self.row_fifo_prefix}_{i}_r_en, '
                 + f'{self.row_fifo_prefix}_{i}_w_en,\n'
             )
+        # Weight inputs to FIFOs
         for j in range(self.config.COLS):
             verilog += (
                 # Column FIFO Inputs
@@ -46,14 +48,15 @@ class SystolicArray(VerilogModule):
                 + f'\tinput {self.col_fifo_prefix}_{j}_r_en, '
                 + f'{self.col_fifo_prefix}_{j}_w_en,\n'
             )
+        # Output wires for PEs (All membrane potentials)
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
                 verilog += (
                     f'\toutput signed [DATA_WIDTH-1:0] out_data_{i}_{j},\n'
                 )
+            # Remove comma in last iteration
             if i == self.config.ROWS - 1:
                 verilog = verilog[:-2]
-
         verilog += '\n);\n'
         return verilog
 
@@ -61,14 +64,17 @@ class SystolicArray(VerilogModule):
         # Instantiate FIFOs
         verilog = self.config.section_comment(1, 'FIFO Instantiations')
         for i in range(self.config.ROWS):
+            # Output wires of FIFOs to PE (single bit)
             verilog += (
-                f'\twire signed [DATA_WIDTH-1:0] {self.row_fifo_prefix}_'
+                f'\twire signed {self.row_fifo_prefix}_'
                 + f'{i}_out;\n'
             )
+            # TODO: Customize bitwidth for FIFO here
             verilog += self.fifo_generator.generate_instance(
                     self.row_fifo_prefix,
                     row_id=i,
                     in_data=f'in_row_{i}',
+                    data_width=1
             )
 
         # Instantiate FIFO connections
@@ -90,13 +96,12 @@ class SystolicArray(VerilogModule):
             for j in range(self.config.COLS):
                 # Instantiate the wires for connecting PEs
                 verilog += \
-                    f'\twire signed [DATA_WIDTH-1:0] ' \
-                    + f'out_col_{i}_{j};\n'
+                    f'\twire out_row_{i}_{j};\n'
                 verilog += \
                     f'\twire signed [DATA_WIDTH-1:0] ' \
-                    + f'out_row_{i}_{j};\n'
+                    + f'out_col_{i}_{j};\n'
                 # Instantiate the next PE and connect
-                verilog += self.mac_generator.generate_instance(
+                verilog += self.pe_generator.generate_instance(
                     i, j,
                 )
         return verilog

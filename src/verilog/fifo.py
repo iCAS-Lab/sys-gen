@@ -1,9 +1,6 @@
 """Relevant code regarding building conventional integer processing elements.
 """
 ################################################################################
-# Std libs
-from pathlib import Path
-
 # Local libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
@@ -72,14 +69,18 @@ class FIFO(VerilogModule):
             row_id='X',
             col_id='X',
             in_data=None,
+            data_width: int = None
         ):
         # Select index
         idx = row_id if row_id != 'X' else col_id
         out_data = f'{name}_{idx}_out'
         full = f'{name}_{idx}_full'
         empty = f'{name}_{idx}_empty'
+        overridden_data_width = ''
+        if data_width is not None:
+            overridden_data_width = f'#(DATA_WIDTH={data_width})'
         instance_string = (
-            f'\tfifo {name}_{idx} (\n'
+            f'\tfifo {name}_{idx} {overridden_data_width} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
             + f'\t\t.w_en ({name}_{idx}_w_en),\n'

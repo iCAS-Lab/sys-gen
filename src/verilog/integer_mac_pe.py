@@ -1,9 +1,6 @@
 """Relevant code regarding building conventional integer processing elements.
 """
 ################################################################################
-# Std libs
-from pathlib import Path
-
 # Local libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
@@ -33,13 +30,12 @@ MODULE_DEFINITION = f"""
     end
 """
 ################################################################################
-class INTEGER_MAC_PE(VerilogModule):
+class IntegerMACPE(VerilogModule):
     def __init__(self, config: Config):
         super().__init__(config=config, module_name=MODULE_NAME)
 
     def generate_module(self):
-        verilog = ''
-        verilog += (
+        verilog = (
             f'module {MODULE_NAME} '
             + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
         )
@@ -67,9 +63,9 @@ class INTEGER_MAC_PE(VerilogModule):
                 + f'\t\t.rstn (rstn),\n'
                 + f'\t\t.in_row ({in_row}),\n'
                 + f'\t\t.in_col ({in_col}),\n'
-                + f'\t\t.out_data (out_data_{row_id}_{col_id}),\n'
+                + f'\t\t.out_row (out_row_{row_id}_{col_id}),\n'
                 + f'\t\t.out_col (out_col_{row_id}_{col_id}),\n'
-                + f'\t\t.out_row (out_row_{row_id}_{col_id})\n'
+                + f'\t\t.out_data (out_data_{row_id}_{col_id})\n'
                 + f'\t);\n'
             )
         else:
@@ -81,9 +77,9 @@ class INTEGER_MAC_PE(VerilogModule):
                 + f'\t\t.in_row (out_row_{row_id}_{col_id-1}),\n'
                 + f'\t\t.in_col (out_col_{row_id-1}_{col_id}),\n'
                 # Output ports
-                + f'\t\t.out_data (out_data_{row_id}_{col_id}),\n'
+                + f'\t\t.out_row (out_row_{row_id}_{col_id}),\n'
                 + f'\t\t.out_col (out_col_{row_id}_{col_id}),\n'
-                + f'\t\t.out_row (out_row_{row_id}_{col_id})\n'
+                + f'\t\t.out_data (out_data_{row_id}_{col_id})\n'
                 + f'\t);\n'
             )
         

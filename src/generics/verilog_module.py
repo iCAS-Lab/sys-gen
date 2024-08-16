@@ -46,7 +46,10 @@ class VerilogModule(abc.ABC):
         """
         with open(self.config.MODULE_PATH / fname, 'w') as f:
             f.write(self.config.HEADER)
+            # TODO: Write module name/io here
             f.write(self.verilog)
+            # TODO: Write endmodule
+            # f.write(self.config.ENDMODULE)
 
     @abc.abstractmethod
     def generate_module(self) -> str:

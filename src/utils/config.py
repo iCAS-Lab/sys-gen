@@ -14,15 +14,18 @@ from pathlib import Path
 class Config:
     def __init__(self):
         # Configurations
-        self.DATA_WIDTH=16
-        self.FIFO_DEPTH=8
-        self.ROWS=3
-        self.COLS=3
+        self.DATA_WIDTH = 16
+        self.FIFO_DEPTH = 8
+        self.ROWS = 3
+        self.COLS = 3
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
         self.MODULE_PATH = Path.cwd().parent / 'generated_verilog'
 
+        # Accumulator settings
+        self.ACCUMULATE_TIME_WIDTH = 5
+        self.ACCUMULATE_INTERVAL = 2 ** self.ACCUMULATE_TIME_WIDTH - 1
         
         # Verilog heading options
         self.TIMESCALE = '`timescale 1ns / 1ps'
