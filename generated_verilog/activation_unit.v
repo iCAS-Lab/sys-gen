@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 12:55:05.323268
+// Create Date: 2024-08-16 13:04:58.031819
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -20,9 +20,9 @@ module activation_unit #(parameter DATA_WIDTH=16, TIMER_WIDTH=5)
 	input [DATA_WIDTH-1:0] membrane_potential_1,
 	input signed [DATA_WIDTH-1:0] threshold_2,
 	input [DATA_WIDTH-1:0] membrane_potential_2,
-	output [TIMER_WIDTH-1:0] out_wires_0,
-	output [TIMER_WIDTH-1:0] out_wires_1,
-	output [TIMER_WIDTH-1:0] out_wires_2
+	output [TIMER_WIDTH-1:0] accumulated_spikes_0,
+	output [TIMER_WIDTH-1:0] accumulated_spikes_1,
+	output [TIMER_WIDTH-1:0] accumulated_spikes_2
 );
 
     reg [TIMER_WIDTH-1:0] timer;

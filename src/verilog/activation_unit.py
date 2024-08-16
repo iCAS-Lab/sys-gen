@@ -44,7 +44,7 @@ class ActivationUnit(VerilogModule):
             verilog += f'\tinput signed [DATA_WIDTH-1:0] threshold_{i},\n'
             verilog += f'\tinput [DATA_WIDTH-1:0] membrane_potential_{i},\n'
         for i in range(self.config.COLS):
-            verilog += f'\toutput [TIMER_WIDTH-1:0] out_wires_{i},\n'
+            verilog += f'\toutput [TIMER_WIDTH-1:0] accumulated_spikes_{i},\n'
         verilog = verilog[:-2]
         verilog += '\n);\n'
 
