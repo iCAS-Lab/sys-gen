@@ -43,14 +43,13 @@ class AccumulatorElement(VerilogModule):
             self,
             col_id: int
     ):
-        in_spike = f'spike_{col_id}'
         out_wires = f'accumulated_spikes_{col_id}'
         verilog_instance = (
-            f'\t{MODULE_NAME} accumulator_{col_id} (\n'
+            f'\t{MODULE_NAME} accumulator (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
             + f'\t\t.reset_accumulation (reset_accumulated_spikes),\n'
-            + f'\t\t.spike ({in_spike}),\n'
+            + f'\t\t.spike (spike),\n'
             + f'\t\t.accumulated_spikes ({out_wires})\n'
             + f'\t);\n'
         )

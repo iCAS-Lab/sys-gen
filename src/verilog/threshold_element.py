@@ -36,16 +36,13 @@ class ThresholdElement(VerilogModule):
             self,
             col_id: int
     ):
-        in_threshold = f'threshold_{col_id}'
-        in_membrane_potential = f'membrane_potential_{col_id}'
-        out_spike = f'spike_{col_id}'
         verilog_instance = (
             f'\t{MODULE_NAME} threshold_{col_id} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
-            + f'\t\t.membrane_potential ({in_membrane_potential}),\n'
-            + f'\t\t.threshold ({in_threshold}),\n'
-            + f'\t\t.spike ({out_spike})\n'
+            + f'\t\t.membrane_potential (membrane_potential),\n'
+            + f'\t\t.threshold (threshold),\n'
+            + f'\t\t.spike (spike)\n'
             + f'\t);\n'
         )
         return verilog_instance

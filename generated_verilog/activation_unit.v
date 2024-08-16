@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:10:13.267298
+// Create Date: 2024-08-16 13:20:12.113054
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -42,8 +42,8 @@ module activation_unit #(parameter DATA_WIDTH=16, TIMER_WIDTH=5)
 		.clk (clk),
 		.rstn (rstn),
 		.reset_accumulated_spikes (reset_accumulated_spikes),
-		.membrane_potential (membrane_potential_0),
-		.threshold (threshold_0),
+		.membrane_potential (membrane_potential),
+		.threshold (threshold),
 		.accumulated_spikes (accumulated_spikes_0)
 	);
 	wire threshold_to_accumulator_1;
@@ -51,8 +51,8 @@ module activation_unit #(parameter DATA_WIDTH=16, TIMER_WIDTH=5)
 		.clk (clk),
 		.rstn (rstn),
 		.reset_accumulated_spikes (reset_accumulated_spikes),
-		.membrane_potential (membrane_potential_1),
-		.threshold (threshold_1),
+		.membrane_potential (membrane_potential),
+		.threshold (threshold),
 		.accumulated_spikes (accumulated_spikes_1)
 	);
 	wire threshold_to_accumulator_2;
@@ -60,8 +60,8 @@ module activation_unit #(parameter DATA_WIDTH=16, TIMER_WIDTH=5)
 		.clk (clk),
 		.rstn (rstn),
 		.reset_accumulated_spikes (reset_accumulated_spikes),
-		.membrane_potential (membrane_potential_2),
-		.threshold (threshold_2),
+		.membrane_potential (membrane_potential),
+		.threshold (threshold),
 		.accumulated_spikes (accumulated_spikes_2)
 	);
 

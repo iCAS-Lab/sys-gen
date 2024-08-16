@@ -26,7 +26,7 @@ class ActivationElement(VerilogModule):
     
     def generate_module(self) -> str:
         verilog = (
-            f'module {MODULE_NAME}'
+            f'module {MODULE_NAME} '
             + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
         )
         verilog += MODULE_IO
@@ -40,8 +40,8 @@ class ActivationElement(VerilogModule):
             col_id: int,
 
     ):
-        in_membrane_potential = f'membrane_potential_{col_id}'
-        in_threshold = f'threshold_{col_id}'
+        in_membrane_potential = f'membrane_potential'
+        in_threshold = f'threshold'
         out_accumulated_spikes = f'accumulated_spikes_{col_id}'
         verilog = (
             f'\t{MODULE_NAME} activation_element_{col_id} (\n'
