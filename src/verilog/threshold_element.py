@@ -33,10 +33,9 @@ class ThresholdElement(VerilogModule):
     
     def generate_instance(
             self,
-            col_id: int
     ):
         verilog_instance = (
-            f'\t{MODULE_NAME} threshold_{col_id} (\n'
+            f'\t{MODULE_NAME} threshold (\n'
             + f'\t\t.membrane_potential (membrane_potential),\n'
             + f'\t\t.threshold (threshold),\n'
             + f'\t\t.spike (spike)\n'

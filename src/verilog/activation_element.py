@@ -29,8 +29,8 @@ class ActivationElement(VerilogModule):
             + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
         )
         verilog += MODULE_IO
-        verilog += self.threshold_unit_generator.generate_instance(0)
-        verilog += self.accumulator_generator.generate_instance(0)
+        verilog += self.threshold_unit_generator.generate_instance()
+        verilog += self.accumulator_generator.generate_instance()
         verilog += self.config.ENDMODULE
         return verilog
     

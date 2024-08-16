@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:40:01.819799
+// Create Date: 2024-08-16 13:45:33.935895
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -17,7 +17,7 @@ module activation_element #(parameter DATA_WIDTH=16)
     input signed [DATA_WIDTH-1:0] threshold,
     output signed [DATA_WIDTH-1:0] accumulated_spikes
 );
-	threshold_element threshold_0 (
+	threshold_element threshold (
 		.membrane_potential (membrane_potential),
 		.threshold (threshold),
 		.spike (spike)
@@ -26,7 +26,7 @@ module activation_element #(parameter DATA_WIDTH=16)
 		.clk (clk),
 		.rstn (rstn),
 		.spike (spike),
-		.accumulated_spikes (accumulated_spikes_0)
+		.accumulated_spikes (accumulated_spikes)
 	);
 
 endmodule
