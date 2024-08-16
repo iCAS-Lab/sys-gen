@@ -8,7 +8,6 @@ from utils.config import Config
 MODULE_NAME = 'threshold_element'
 MODULE_IO = """
 (
-    input clk, rstn,
     input signed [DATA_WIDTH-1:0] membrane_potential,
     input signed [DATA_WIDTH-1:0] threshold,
     output spike
@@ -38,8 +37,6 @@ class ThresholdElement(VerilogModule):
     ):
         verilog_instance = (
             f'\t{MODULE_NAME} threshold_{col_id} (\n'
-            + f'\t\t.clk (clk),\n'
-            + f'\t\t.rstn (rstn),\n'
             + f'\t\t.membrane_potential (membrane_potential),\n'
             + f'\t\t.threshold (threshold),\n'
             + f'\t\t.spike (spike)\n'
