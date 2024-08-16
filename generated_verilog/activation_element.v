@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:29:01.935829
+// Create Date: 2024-08-16 13:37:01.400327
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -13,7 +13,6 @@
 module activation_element #(parameter DATA_WIDTH=16)
 (
     input clk, rstn,
-    input reset_accumulated_spikes,
     input signed [DATA_WIDTH-1:0] membrane_potential,
     input signed [DATA_WIDTH-1:0] threshold,
     output signed [DATA_WIDTH-1:0] accumulated_spikes
@@ -26,7 +25,6 @@ module activation_element #(parameter DATA_WIDTH=16)
 	accumulator_element accumulator (
 		.clk (clk),
 		.rstn (rstn),
-		.reset_accumulation (reset_accumulated_spikes),
 		.spike (spike),
 		.accumulated_spikes (accumulated_spikes_0)
 	);

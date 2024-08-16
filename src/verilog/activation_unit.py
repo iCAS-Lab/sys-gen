@@ -9,22 +9,7 @@ from verilog.activation_element import ActivationElement
 MODULE_NAME = 'activation_unit'
 MODULE_IO = """
 (
-    input clk, rstn,
-    input [TIMER_WIDTH-1:0] accumulate_interval,
-"""
-MODULE_DEFINITION = """
-    reg [TIMER_WIDTH-1:0] timer;
-    wire reset_accumulated_spikes;
-    
-    always @ (posedge clk or negedge rstn) begin
-        if (! rstn) begin
-            timer <= 0;
-        end
-    end
-
-    // Reset the number of accumulated spikes if the interval has been reached
-    assign reset_accumulated_spikes = (timer >= accumulate_interval) ? 1 : 0;
-
+    input clk, rstn
 """
 ################################################################################
 class ActivationUnit(VerilogModule):
@@ -47,8 +32,6 @@ class ActivationUnit(VerilogModule):
             verilog += f'\toutput [TIMER_WIDTH-1:0] accumulated_spikes_{i},\n'
         verilog = verilog[:-2]
         verilog += '\n);\n'
-
-        verilog += MODULE_DEFINITION
         
         # Generate Activation Elements
         for i in range(self.config.COLS):

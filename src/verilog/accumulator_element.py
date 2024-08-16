@@ -10,13 +10,12 @@ MODULE_IO = """
 (
     input clk, rstn,
     input spike,
-    input reset_accumulation,
     output reg [DATA_WIDTH-1:0] accumulated_spikes
 );
 """
 MODULE_DEFINITION = """
     always @ (posedge clk or negedge rstn) begin
-        if (! rstn || reset_accumulation) begin
+        if (! rstn) begin
             accumulated_spikes <= 0;
         end
         else if (spike) begin
@@ -48,7 +47,6 @@ class AccumulatorElement(VerilogModule):
             f'\t{MODULE_NAME} accumulator (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
-            + f'\t\t.reset_accumulation (reset_accumulated_spikes),\n'
             + f'\t\t.spike (spike),\n'
             + f'\t\t.accumulated_spikes ({out_wires})\n'
             + f'\t);\n'
