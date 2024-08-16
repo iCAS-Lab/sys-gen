@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:37:01.400327
+// Create Date: 2024-08-16 13:38:52.973999
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 module activation_unit #(parameter DATA_WIDTH=16, TIMER_WIDTH=5)
 (
-    input clk, rstn
+    input clk, rstn,
 	input signed [DATA_WIDTH-1:0] threshold_0,
 	input [DATA_WIDTH-1:0] membrane_potential_0,
 	input signed [DATA_WIDTH-1:0] threshold_1,

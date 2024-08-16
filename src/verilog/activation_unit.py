@@ -9,7 +9,7 @@ from verilog.activation_element import ActivationElement
 MODULE_NAME = 'activation_unit'
 MODULE_IO = """
 (
-    input clk, rstn
+    input clk, rstn,
 """
 ################################################################################
 class ActivationUnit(VerilogModule):
