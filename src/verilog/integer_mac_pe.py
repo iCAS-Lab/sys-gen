@@ -17,7 +17,7 @@ MODULE_IO = """
 );
 """
 MODULE_DEFINITION = f"""
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             out_data <= 0;
             out_row <= 0;

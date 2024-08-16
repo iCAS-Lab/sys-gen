@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:45:33.935895
+// Create Date: 2024-08-16 13:55:25.267538
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -20,7 +20,7 @@ module integer_mac_pe #(parameter DATA_WIDTH=16)
     output reg signed [DATA_WIDTH-1:0] out_data = 0
 );
 
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             out_data <= 0;
             out_row <= 0;

@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 13:45:33.935895
+// Create Date: 2024-08-16 13:55:25.267538
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -23,7 +23,7 @@ module fifo #(parameter DEPTH=8, DATA_WIDTH=16)
     reg [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
 
     // Write enabled and not full
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             w_ptr <= 0;
         end
@@ -34,7 +34,7 @@ module fifo #(parameter DEPTH=8, DATA_WIDTH=16)
     end
 
     // Read enabled and not empty
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             out_data <= 0;
             r_ptr <= 0;

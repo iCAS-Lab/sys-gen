@@ -21,7 +21,7 @@ MODULE_DEFINITION = """
     reg [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
 
     // Write enabled and not full
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             w_ptr <= 0;
         end
@@ -32,7 +32,7 @@ MODULE_DEFINITION = """
     end
 
     // Read enabled and not empty
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         if (! rstn) begin
             out_data <= 0;
             r_ptr <= 0;

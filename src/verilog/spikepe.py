@@ -19,7 +19,7 @@ MODULE_IO = """
 """
 MODULE_DEFINITION = """
     // Integrate spikes into membrane potential
-    always @ (posedge clk) begin
+    always @ (posedge clk or negedge rstn) begin
         // Reset logic
         if (! rstn) begin
             membrane_potential <= 0;
