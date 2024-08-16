@@ -18,9 +18,10 @@ MODULE_DEFINITION = """
         if (! rstn) begin
             accumulated_spikes <= 0;
         end
-        else if (spike) begin
-            accumulated_spikes <= accumulated_spikes + 1;
-        end
+    end
+
+    always @ (posedge spike) begin
+        accumulated_spikes <= accumulated_spikes + 1;
     end
 """
 ################################################################################

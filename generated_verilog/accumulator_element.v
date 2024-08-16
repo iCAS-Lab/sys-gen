@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 14:00:33.295960
+// Create Date: 2024-08-16 14:04:14.131892
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -21,9 +21,10 @@ module accumulator_element #(parameter DATA_WIDTH=16)
         if (! rstn) begin
             accumulated_spikes <= 0;
         end
-        else if (spike) begin
-            accumulated_spikes <= accumulated_spikes + 1;
-        end
+    end
+
+    always @ (posedge spike) begin
+        accumulated_spikes <= accumulated_spikes + 1;
     end
 
 endmodule
