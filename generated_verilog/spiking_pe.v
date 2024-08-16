@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-16 14:04:14.131892
+// Create Date: 2024-08-16 14:40:45.837331
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -16,7 +16,7 @@ module spiking_pe #(parameter DATA_WIDTH=16)
     input rstn,
     input in_row,
     input signed [DATA_WIDTH-1:0] in_col,
-    output reg signed [DATA_WIDTH-1:0] out_data
+    output reg signed [DATA_WIDTH-1:0] out_data,
     output reg out_row,
     output reg signed [DATA_WIDTH-1:0] out_col
 );
@@ -25,13 +25,13 @@ module spiking_pe #(parameter DATA_WIDTH=16)
     always @ (posedge clk or negedge rstn) begin
         // Reset logic
         if (! rstn) begin
-            membrane_potential <= 0;
+            out_data <= 0;
         end
         else if (in_row) begin
-            membrane_potential <= membrane_potential + in_col;
+            out_data <= out_data + in_col;
         end
         else
-            membrane_potential <= membrane_potential;
+            out_data <= out_data;
     end
 
 endmodule

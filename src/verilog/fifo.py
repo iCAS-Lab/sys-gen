@@ -48,10 +48,12 @@ MODULE_DEFINITION = """
     assign empty = (w_ptr == r_ptr);
 """
 ################################################################################
+
+
 class FIFO(VerilogModule):
     def __init__(self, config: Config):
         super().__init__(config=config, module_name=MODULE_NAME)
-    
+
     def generate_module(self):
         verilog = ''
         verilog += (
@@ -62,15 +64,15 @@ class FIFO(VerilogModule):
         verilog += MODULE_DEFINITION
         verilog += self.config.ENDMODULE
         return verilog
-    
+
     def generate_instance(
-            self,
-            name,
-            row_id='X',
-            col_id='X',
-            in_data=None,
-            data_width: int = None
-        ):
+        self,
+        name,
+        row_id='X',
+        col_id='X',
+        in_data=None,
+        data_width: int = None
+    ):
         # Select index
         idx = row_id if row_id != 'X' else col_id
         out_data = f'{name}_{idx}_out'
@@ -78,9 +80,9 @@ class FIFO(VerilogModule):
         empty = f'{name}_{idx}_empty'
         overridden_data_width = ''
         if data_width is not None:
-            overridden_data_width = f'#(DATA_WIDTH={data_width})'
+            overridden_data_width = f'#(.DATA_WIDTH({data_width}))'
         instance_string = (
-            f'\tfifo {name}_{idx} {overridden_data_width} (\n'
+            f'\tfifo {overridden_data_width} {name}_{idx} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
             + f'\t\t.w_en ({name}_{idx}_w_en),\n'

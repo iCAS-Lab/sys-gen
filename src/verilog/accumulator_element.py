@@ -4,7 +4,7 @@
 # Local libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config\
-################################################################################
+    ################################################################################
 MODULE_NAME = 'accumulator_element'
 MODULE_IO = """
 (
@@ -18,17 +18,18 @@ MODULE_DEFINITION = """
         if (! rstn) begin
             accumulated_spikes <= 0;
         end
-    end
-
-    always @ (posedge spike) begin
-        accumulated_spikes <= accumulated_spikes + 1;
+        else if (spike) begin
+            accumulated_spikes <= accumulated_spikes + 1;
+        end
     end
 """
 ################################################################################
+
+
 class AccumulatorElement(VerilogModule):
     def __init__(self, config):
         super().__init__(config, MODULE_NAME)
-    
+
     def generate_module(self) -> str:
         verilog = (
             f'module {MODULE_NAME} '

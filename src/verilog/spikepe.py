@@ -12,7 +12,7 @@ MODULE_IO = """
     input rstn,
     input in_row,
     input signed [DATA_WIDTH-1:0] in_col,
-    output reg signed [DATA_WIDTH-1:0] out_data
+    output reg signed [DATA_WIDTH-1:0] out_data,
     output reg out_row,
     output reg signed [DATA_WIDTH-1:0] out_col
 );
@@ -22,20 +22,22 @@ MODULE_DEFINITION = """
     always @ (posedge clk or negedge rstn) begin
         // Reset logic
         if (! rstn) begin
-            membrane_potential <= 0;
+            out_data <= 0;
         end
         else if (in_row) begin
-            membrane_potential <= membrane_potential + in_col;
+            out_data <= out_data + in_col;
         end
         else
-            membrane_potential <= membrane_potential;
+            out_data <= out_data;
     end
 """
 ################################################################################
+
+
 class SpikingPE(VerilogModule):
     def __init__(self, config: Config):
         super().__init__(config=config, module_name=MODULE_NAME)
-    
+
     def generate_module(self):
         verilog = (
             f'module {MODULE_NAME} '
@@ -45,7 +47,7 @@ class SpikingPE(VerilogModule):
         verilog += MODULE_DEFINITION
         verilog += self.config.ENDMODULE
         return verilog
-    
+
     def generate_instance(
             self,
             row_id='X',
@@ -60,7 +62,7 @@ class SpikingPE(VerilogModule):
                 f'out_col_{row_id-1}_{col_id}'
             )
             instance_string = (
-                f'\tinteger_mac_pe mac_pe_{row_id}_{col_id} (\n'
+                f'\t{MODULE_NAME} spiking_pe_{row_id}_{col_id} (\n'
                 + f'\t\t.clk (clk),\n'
                 + f'\t\t.rstn (rstn),\n'
                 + f'\t\t.in_row ({in_row}),\n'
@@ -72,7 +74,7 @@ class SpikingPE(VerilogModule):
             )
         else:
             instance_string = (
-                f'\tinteger_mac_pe mac_pe_{row_id}_{col_id} (\n'
+                f'\t{MODULE_NAME} spiking_pe_{row_id}_{col_id} (\n'
                 + f'\t\t.clk (clk),\n'
                 + f'\t\t.rstn (rstn),\n'
                 # Connect inputs to previous PE outputs
@@ -84,5 +86,5 @@ class SpikingPE(VerilogModule):
                 + f'\t\t.out_data (out_data_{row_id}_{col_id})\n'
                 + f'\t);\n'
             )
-        
+
         return instance_string

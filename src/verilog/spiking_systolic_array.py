@@ -9,6 +9,8 @@ from verilog.fifo import FIFO
 ################################################################################
 MODULE_NAME = 'spiking_systolic_array'
 ################################################################################
+
+
 class SpikingSystolicArray(VerilogModule):
     def __init__(self, config: Config):
         self.pe_generator = SpikingPE(config)
@@ -36,7 +38,7 @@ class SpikingSystolicArray(VerilogModule):
         for i in range(self.config.ROWS):
             verilog += (
                 # Row FIFO Inputs
-                f'\tinput in_row_{i},\n' # One bit
+                f'\tinput in_row_{i},\n'  # One bit
                 + f'\tinput {self.row_fifo_prefix}_{i}_r_en, '
                 + f'{self.row_fifo_prefix}_{i}_w_en,\n'
             )
@@ -71,10 +73,10 @@ class SpikingSystolicArray(VerilogModule):
             )
             # TODO: Customize bitwidth for FIFO here
             verilog += self.fifo_generator.generate_instance(
-                    self.row_fifo_prefix,
-                    row_id=i,
-                    in_data=f'in_row_{i}',
-                    data_width=1
+                self.row_fifo_prefix,
+                row_id=i,
+                in_data=f'in_row_{i}',
+                data_width=1
             )
 
         # Instantiate FIFO connections
@@ -84,12 +86,12 @@ class SpikingSystolicArray(VerilogModule):
                 + f'{j}_out;\n'
             )
             verilog += self.fifo_generator.generate_instance(
-                    self.col_fifo_prefix,
-                    col_id=j,
-                    in_data=f'in_col_{j}',
+                self.col_fifo_prefix,
+                col_id=j,
+                in_data=f'in_col_{j}',
             )
         return verilog
-    
+
     def generate_pes(self):
         verilog = self.config.section_comment(1, 'MAC PE Instantiations')
         for i in range(self.config.ROWS):
@@ -105,7 +107,6 @@ class SpikingSystolicArray(VerilogModule):
                     i, j,
                 )
         return verilog
-
 
     def generate_module(self):
         """Generate an ROWSxCOLS systolic array of data_width precision and 
