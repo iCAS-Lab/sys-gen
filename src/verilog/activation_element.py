@@ -13,6 +13,7 @@ MODULE_IO = """
     input clk, rstn,
     input signed [DATA_WIDTH-1:0] membrane_potential,
     input signed [DATA_WIDTH-1:0] threshold,
+    output spike,
     output signed [DATA_WIDTH-1:0] accumulated_spikes
 );
 """
@@ -48,6 +49,7 @@ class ActivationElement(VerilogModule):
             + f'\t\t.rstn (rstn),\n'
             + f'\t\t.membrane_potential ({in_membrane_potential}),\n'
             + f'\t\t.threshold ({in_threshold}),\n'
+            + f'\t\t.spike (spike),\n'
             + f'\t\t.accumulated_spikes ({out_accumulated_spikes})\n'
             + f'\t);\n'
         )
