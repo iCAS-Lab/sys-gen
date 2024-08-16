@@ -21,7 +21,7 @@ MODULE_DEFINITION = """
     // Integrate spikes into membrane potential
     always @ (posedge clk) begin
         // Reset logic
-        if (! rstn || in_reset) begin
+        if (! rstn) begin
             membrane_potential <= 0;
         end
         else if (in_row) begin

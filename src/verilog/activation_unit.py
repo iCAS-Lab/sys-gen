@@ -11,9 +11,6 @@ MODULE_IO = """
 (
     input clk, rstn,
     input [TIMER_WIDTH-1:0] accumulate_interval,
-    input signed [DATA_WIDTH*COLS-1:0] thresholds,
-    output [DATA_WIDTH*COLS-1:0] out_data
-);
 """
 MODULE_DEFINITION = """
     reg [TIMER_WIDTH-1:0] timer;
@@ -26,28 +23,42 @@ MODULE_DEFINITION = """
     end
 
     // Reset the number of accumulated spikes if the interval has been reached
-    assign reset_accumulated_spikes = (time >= accumulate_interval) ? 1 : 0;
+    assign reset_accumulated_spikes = (timer >= accumulate_interval) ? 1 : 0;
+
 """
 ################################################################################
 class ActivationUnit(VerilogModule):
-    def __init__(self, config: Config, module_name: str):
+    def __init__(self, config: Config):
         self.activation_element_generator = ActivationElement(config=config)
-        super().__init__(config, module_name)
+        super().__init__(config, MODULE_NAME)
 
     def generate_module(self) -> str:
         verilog = (
             f'module {MODULE_NAME} '
             + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH}, '
-            + f'TIMER_WIDTH={self.config.ACCUMULATE_TIME_WIDTH})\n'
+            + f'TIMER_WIDTH={self.config.ACCUMULATE_TIME_WIDTH})'
         )
         verilog += MODULE_IO
+
+        for i in range(self.config.COLS):
+            verilog += f'\tinput signed [DATA_WIDTH-1:0] threshold_{i},\n'
+            verilog += f'\tinput [DATA_WIDTH-1:0] membrane_potential_{i},\n'
+        for i in range(self.config.COLS):
+            verilog += f'\toutput [TIMER_WIDTH-1:0] out_wires_{i},\n'
+        verilog = verilog[:-2]
+        verilog += '\n);\n'
+
         verilog += MODULE_DEFINITION
         
         # Generate Activation Elements
         for i in range(self.config.COLS):
-            verilog += self.activation_element_generator.generate_instance(
-                f'activation_element_{i}')
+            verilog += (
+                f'\twire threshold_to_accumulator_{i};\n'
+            )
+            verilog += self.activation_element_generator.generate_instance(i)
         
+        verilog += self.config.ENDMODULE
+
         return verilog
     
     def generate_instance(self):

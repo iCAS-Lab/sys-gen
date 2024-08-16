@@ -11,13 +11,11 @@ MODULE_IO = """
     input clk, rstn,
     input signed [DATA_WIDTH-1:0] membrane_potential,
     input signed [DATA_WIDTH-1:0] threshold,
-    output spike,
-    output reset_membrane_potential
+    output spike
 );
 """
 MODULE_DEFINITION = """
     assign spike = (membrane_potential >= threshold) ? 1 : 0;
-    assign reset_membrane_potential = spike ? 1 : 0;
 """
 ################################################################################
 class ThresholdElement(VerilogModule):
@@ -27,7 +25,7 @@ class ThresholdElement(VerilogModule):
     def generate_module(self) -> str:
         verilog = (
             f'module {MODULE_NAME} '
-            + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})\n'
+            + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
         )
         verilog += MODULE_IO
         verilog += MODULE_DEFINITION
@@ -36,12 +34,18 @@ class ThresholdElement(VerilogModule):
     
     def generate_instance(
             self,
-            name: str,
-            col_id: str
+            col_id: int
     ):
+        in_threshold = f'threshold_{col_id}'
+        in_membrane_potential = f'membrane_potential_{col_id}'
+        out_spike = f'spike_{col_id}'
         verilog_instance = (
-            f'\t{MODULE_NAME} {name} (\n'
-            + f'\t\t,\n'
+            f'\t{MODULE_NAME} threshold_{col_id} (\n'
+            + f'\t\t.clk (clk),\n'
+            + f'\t\t.rstn (rstn),\n'
+            + f'\t\t.membrane_potential ({in_membrane_potential}),\n'
+            + f'\t\t.threshold ({in_threshold}),\n'
+            + f'\t\t.spike ({out_spike})\n'
             + f'\t);\n'
         )
         return verilog_instance

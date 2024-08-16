@@ -9,14 +9,14 @@ MODULE_NAME = 'accumulator_element'
 MODULE_IO = """
 (
     input clk, rstn,
-    input reset_accumulated_spikes,
     input spike,
+    input reset_accumulation,
     output reg [DATA_WIDTH-1:0] accumulated_spikes
 );
 """
 MODULE_DEFINITION = """
     always @ (posedge clk or negedge rstn) begin
-        if (! rstn || reset_accumulated_spikes) begin
+        if (! rstn || reset_accumulation) begin
             accumulated_spikes <= 0;
         end
         else if (spike) begin
@@ -41,16 +41,16 @@ class AccumulatorElement(VerilogModule):
 
     def generate_instance(
             self,
-            name: str,
-            col_id: str
+            col_id: int
     ):
-        out_wires = f'out_{((col_id+1)*self.config.DATA_WIDTH)-1}'
+        in_spike = f'spike_{col_id}'
+        out_wires = f'accumulated_spikes_{col_id}'
         verilog_instance = (
-            f'\t{MODULE_NAME} {name}_{col_id} (\n'
+            f'\t{MODULE_NAME} accumulator_{col_id} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
-            + f'\t\t.reset_accumulated_spikes (reset_accumulated_spikes),\n'
-            + f'\t\t.spike (spike_{col_id}),\n'
+            + f'\t\t.reset_accumulation (reset_accumulated_spikes),\n'
+            + f'\t\t.spike ({in_spike}),\n'
             + f'\t\t.accumulated_spikes ({out_wires})\n'
             + f'\t);\n'
         )

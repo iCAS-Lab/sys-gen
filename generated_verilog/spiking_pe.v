@@ -3,7 +3,7 @@
 // Company: TODO
 // Engineer: TODO
 //
-// Create Date: 2024-08-15 15:05:02.464012
+// Create Date: 2024-08-16 12:55:05.323268
 // Target Devices: TODO
 // Tool Versions: TODO
 // Description: TODO
@@ -24,7 +24,7 @@ module spiking_pe #(parameter DATA_WIDTH=16)
     // Integrate spikes into membrane potential
     always @ (posedge clk) begin
         // Reset logic
-        if (! rstn || in_reset) begin
+        if (! rstn) begin
             membrane_potential <= 0;
         end
         else if (in_row) begin
