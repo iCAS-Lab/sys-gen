@@ -1,0 +1,14 @@
+.idea/*
+build
+dist
+scalesim.egg-info
+test_runs
+*/__pycache__
+*/*/__pycache__
+*/*/*/__pycache__
+topologies/*.zip
+
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
