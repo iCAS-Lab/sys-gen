@@ -46,6 +46,6 @@ clean-rtl:
 
 clean-dc:
 	rm -rf ${DC}/net/syn ${DC}/reports ${DC}/work ${DC}/alib-52 ${DC}/*.log \
-	${DC}/default.svf ${DC}/logs/* ${DC}/work
+	${DC}/default.svf ${DC}/logs/* ${DC}/work ${DC}/*.txt
 
 clean: clean-rtl clean-dc
