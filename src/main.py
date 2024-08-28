@@ -20,6 +20,7 @@ if __name__ == '__main__':
     # Init config and set any parameters passed in by the user
     config = Config()
     set_config(args, config)
+    config.write()
 
     # Build verilog
     systolic_array = SystolicArray(config=config)

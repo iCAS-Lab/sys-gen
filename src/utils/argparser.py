@@ -3,6 +3,7 @@
 ################################################################################
 # Std libs
 import argparse
+from pathlib import Path
 
 # Local libs
 from utils.config import Config
@@ -18,6 +19,12 @@ def parse_arguments():
             + 'via Python to enable easy manipulation and generation of '
             + 'verilog code for building systolic arrays.'
         )
+    )
+    # Output path
+    parser.add_argument(
+        '-o', '--output-path',
+        type=str,
+        help='The path to write the verilog and configuration to'
     )
     # Systolic array size
     parser.add_argument(
@@ -76,6 +83,10 @@ def parse_arguments():
 
 
 def set_config(args, config: Config):
+    if args.output_path is not None:
+        config.MODULE_PATH = Path(args.output_path)
+        if not Path(args.output_path).exists():
+            config.MODULE_PATH.mkdir()
     config.ROWS = args.rows
     config.COLS = args.cols
     config.DATA_WIDTH = args.data_width

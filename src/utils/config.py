@@ -8,6 +8,7 @@ templates.
 """
 ################################################################################
 import datetime
+import json
 import shutil
 from pathlib import Path
 ################################################################################
@@ -84,10 +85,21 @@ class Config:
         return sec_comment
 
     def __iter__(self):
-        pass
+        yield 'date', str(self.DATE)
+        yield 'rows', self.ROWS
+        yield 'cols', self.COLS
+        yield 'data_width', self.DATA_WIDTH
+        yield 'fifo_depth', self.FIFO_DEPTH
+        yield 'accumulate_interval_width', self.ACCUMULATE_TIME_WIDTH
+        yield 'module_path', str(self.MODULE_PATH)
+        yield 'name', self.ENGINEER
+        yield 'company', self.COMPANY
+        yield 'tool_version', self.TOOL_VERSION
+        yield 'description', self.DESCRIPTION
 
     def read(self, path: Path):
         pass
 
-    def write(self, path: Path):
-        pass
+    def write(self):
+        with open(self.MODULE_PATH / f'config_{self.DATE}.json', 'w') as f:
+            f.write(json.dumps(dict(self), indent=4))
