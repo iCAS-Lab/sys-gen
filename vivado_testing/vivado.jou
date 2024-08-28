@@ -1,0 +1,667 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Tue Aug 27 19:16:04 2024
+# Process ID: 248712
+# Current directory: /home/psc/Repos/Spike-TPU/vivado_testing
+# Command line: vivado .
+# Log file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.log
+# Journal file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.jou
+# Running On        :sigma-icaslab
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 20.04.6 LTS
+# Processor Detail  :Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz
+# CPU Frequency     :1000.000 MHz
+# CPU Physical cores:20
+# CPU Logical cores :40
+# Host memory       :133717 MB
+# Swap memory       :34359 MB
+# Total Virtual     :168077 MB
+# Available Virtual :159441 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/psc/Repos/Spike-TPU/vivado_testing/hybrid-systolic-array/hybrid-systolic-array.xpr
+update_compile_order -fileset sources_1
+launch_simulation -simset [get_filesets testbenches ]
+source tb_fifo.tcl
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+add_force {/tb_fifo/r_en} -radix hex {0 0ns}
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+add_force {/tb_fifo/w_en} -radix hex {0 0ns}
+add_force {/tb_fifo/r_en} -radix hex {1 0ns}
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top accumulator_element [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_accumulator_element [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+source tb_accumulator_element.tcl
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+close_sim
+launch_simulation -simset [get_filesets testbenches ]
+source tb_accumulator_element.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_activation_element [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+add_files -norecurse /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top activation_element [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_simulation -simset [get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+source tb_activation_element.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+close_sim
+launch_simulation -simset [get_filesets testbenches ]
+source tb_activation_element.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+close_sim
+add_files -norecurse /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_unit_2.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top activation_unit_2 [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_activation_unit [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+source tb_activation_unit.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+current_wave_config {Untitled 6}
+add_wave {{/tb_activation_unit/au2/accumulated_spikes_1}} 
+close_sim
+launch_simulation -simset [get_filesets testbenches ]
+source tb_activation_unit.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top integer_mac_pe [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_integer_mac_pe [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+source tb_integer_mac_pe.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+close_sim
+add_files -norecurse /home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_2x2.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top systolic_array_2x2 [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top systolic_array_2x2 [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_systolic_array [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+source tb_systolic_array.tcl
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+relaunch_sim
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+restart
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+current_wave_config {Untitled 9}
+add_wave {{/tb_systolic_array/test_systolic_array/row_fifo_0_out}} {{/tb_systolic_array/test_systolic_array/row_fifo_1_out}} {{/tb_systolic_array/test_systolic_array/col_fifo_0_out}} {{/tb_systolic_array/test_systolic_array/col_fifo_1_out}} 
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+relaunch_sim
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+restart
+set_property -name {xsim.simulate.runtime} -value {1ns} -objects [get_filesets testbenches]
+relaunch_sim
+close_sim
+launch_simulation -simset [get_filesets testbenches ]
+source tb_systolic_array.tcl
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+run 1 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+run 2 ns
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top spiking_pe [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_spike_pe [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+source tb_spike_pe.tcl
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+close_sim
+add_files -norecurse /home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_systolic_array_2x2.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top spiking_systolic_array_2x2 [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_spiking_systolic_array [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+launch_simulation -simset [get_filesets testbenches ]
+source tb_spiking_systolic_array.tcl
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+restart
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+refresh_design
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+relaunch_sim
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns
+run 1 ns

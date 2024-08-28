@@ -1,0 +1,21 @@
+0.7
+2020.2
+May 22 2024
+18:54:44
+/home/psc/Repos/Spike-TPU/vivado_testing/hybrid-systolic-array/hybrid-systolic-array.sim/testbenches/behav/xsim/glbl.v,1708598507,verilog,,,,glbl,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/accumulator_element.v,1724804316,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v,,accumulator_element,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v,1724803891,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_unit_2.v,,activation_element,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/fifo.v,1724806069,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_pe.v,,fifo,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/integer_mac_pe.v,1724806068,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_2x2.v,,integer_mac_pe,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_pe.v,1724812351,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_systolic_array_2x2.v,,spiking_pe,,,,,,,,
+,,,,/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_spiking_systolic_array.v,,spiking_systolic_array_2x2,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_2x2.v,1724806069,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_systolic_array.v,,systolic_array_2x2,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/sources/threshold_element.v,1724798620,verilog,,/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_activation_unit.v,,threshold_element,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_accumulator_element.v,1724801663,verilog,,,,tb_accumulator_element,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_activation_element.v,1724802568,verilog,,,,tb_activation_element,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_fifo.v,1724800279,verilog,,,,tb_fifo,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_integer_mac_pe.v,1724805323,verilog,,,,tb_integer_mac_pe,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_spike_pe.v,1724809434,verilog,,,,tb_spike_pe,,,,,,,,
+,,,,,,tb_spiking_systolic_array,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_systolic_array.v,1724808237,verilog,,,,tb_systolic_array,,,,,,,,
+/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_threshold_element.v,1724799496,verilog,,,,tb_threshold_element,,,,,,,,

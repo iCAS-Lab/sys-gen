@@ -19,16 +19,18 @@ MODULE_IO = """
 """
 MODULE_DEFINITION = """
     // Integrate spikes into membrane potential
-    always @ (posedge clk or negedge rstn) begin
+    always @ (posedge clk) begin
         // Reset logic
         if (! rstn) begin
             out_data <= 0;
+            out_row <= 0;
+            out_col <= 0;
         end
         else if (in_row) begin
             out_data <= out_data + in_col;
         end
-        else
-            out_data <= out_data;
+        out_row <= in_row;
+        out_col <= in_col;
     end
 """
 ################################################################################

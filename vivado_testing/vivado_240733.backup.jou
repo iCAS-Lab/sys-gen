@@ -1,0 +1,79 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Tue Aug 27 18:44:34 2024
+# Process ID: 240733
+# Current directory: /home/psc/Repos/Spike-TPU/vivado_testing
+# Command line: vivado .
+# Log file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.log
+# Journal file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.jou
+# Running On        :sigma-icaslab
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 20.04.6 LTS
+# Processor Detail  :Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz
+# CPU Frequency     :1000.000 MHz
+# CPU Physical cores:20
+# CPU Logical cores :40
+# Host memory       :133717 MB
+# Swap memory       :34359 MB
+# Total Virtual     :168077 MB
+# Available Virtual :159413 MB
+#-----------------------------------------------------------
+start_gui
+xhub::refresh_catalog [xhub::get_xstores xilinx_board_store]
+create_project hybrid-systolic-array /home/psc/Repos/Spike-TPU/vivado_testing/hybrid-systolic-array -part xczu7ev-ffvc1156-2-e
+set_property board_part xilinx.com:zcu104:part0:1.1 [current_project]
+add_files -norecurse {/home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_systolic_array_32x32.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_unit_32.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/threshold_element.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/integer_mac_pe.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_pe.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/fifo.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_32x32.v /home/psc/Repos/Spike-TPU/vivado_testing/sources/accumulator_element.v}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+create_fileset -simset testbenches
+set_property SOURCE_SET sources_1 [get_filesets testbenches]
+add_files -fileset testbenches -norecurse {/home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_threshold_element.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_integer_mac_pe.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_activation_element.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_activation_unit.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_accumulator_element.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_spike_pe.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_fifo.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_systolic_array.v /home/psc/Repos/Spike-TPU/vivado_testing/testbenches/tb_spiking_systolic_array.v}
+update_compile_order -fileset testbenches
+export_ip_user_files -of_objects  [get_files /home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_systolic_array_32x32.v] -no_script -reset -force -quiet
+remove_files  /home/psc/Repos/Spike-TPU/vivado_testing/sources/spiking_systolic_array_32x32.v
+export_ip_user_files -of_objects  [get_files /home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_32x32.v] -no_script -reset -force -quiet
+remove_files  /home/psc/Repos/Spike-TPU/vivado_testing/sources/systolic_array_32x32.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset testbenches
+export_ip_user_files -of_objects  [get_files /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_unit_32.v] -no_script -reset -force -quiet
+remove_files  /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_unit_32.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset testbenches
+export_ip_user_files -of_objects  [get_files /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v] -no_script -reset -force -quiet
+remove_files  /home/psc/Repos/Spike-TPU/vivado_testing/sources/activation_element.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset testbenches
+update_compile_order -fileset sources_1
+update_compile_order -fileset testbenches
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top threshold_element [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+current_fileset -simset [ get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+synth_design -top threshold_element -part xczu7ev-ffvc1156-2-e -lint 
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+launch_simulation -simset [get_filesets testbenches ]
+launch_simulation -simset [get_filesets testbenches ]
+source tb_threshold_element.tcl
+relaunch_sim
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top fifo [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_fifo [get_filesets testbenches]
+set_property top_lib xil_defaultlib [get_filesets testbenches]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset testbenches
+refresh_design

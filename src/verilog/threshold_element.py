@@ -17,6 +17,8 @@ MODULE_DEFINITION = """
     assign spike = (membrane_potential >= threshold) ? 1 : 0;
 """
 ################################################################################
+
+
 class ThresholdElement(VerilogModule):
     def __init__(self, config: Config):
         super().__init__(config, MODULE_NAME)
@@ -30,14 +32,14 @@ class ThresholdElement(VerilogModule):
         verilog += MODULE_DEFINITION
         verilog += self.config.ENDMODULE
         return verilog
-    
+
     def generate_instance(
             self,
     ):
         verilog_instance = (
             f'\t{MODULE_NAME} threshold (\n'
             + f'\t\t.membrane_potential (membrane_potential),\n'
-            + f'\t\t.threshold (threshold),\n'
+            + f'\t\t.threshold (in_threshold),\n'
             + f'\t\t.spike (spike)\n'
             + f'\t);\n'
         )

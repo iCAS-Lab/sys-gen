@@ -14,7 +14,7 @@ MODULE_IO = """
 );
 """
 MODULE_DEFINITION = """
-    always @ (posedge clk or negedge rstn) begin
+    always @ (posedge clk) begin
         if (! rstn) begin
             accumulated_spikes <= 0;
         end

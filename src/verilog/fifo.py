@@ -11,17 +11,17 @@ MODULE_IO = """
 (
     input clk, rstn,
     input w_en, r_en,
-    input [DATA_WIDTH-1:0] in_data,
-    output reg [DATA_WIDTH-1:0] out_data = 0,
+    input signed [DATA_WIDTH-1:0] in_data,
+    output reg signed [DATA_WIDTH-1:0] out_data = 0,
     output full, empty
 );
 """
 MODULE_DEFINITION = """
     reg [$clog2(DEPTH)-1:0] w_ptr, r_ptr;
-    reg [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
+    reg signed [DATA_WIDTH-1:0] fifo[DEPTH-1:0];
 
     // Write enabled and not full
-    always @ (posedge clk or negedge rstn) begin
+    always @ (posedge clk) begin
         if (! rstn) begin
             w_ptr <= 0;
         end
@@ -32,7 +32,7 @@ MODULE_DEFINITION = """
     end
 
     // Read enabled and not empty
-    always @ (posedge clk or negedge rstn) begin
+    always @ (posedge clk) begin
         if (! rstn) begin
             out_data <= 0;
             r_ptr <= 0;

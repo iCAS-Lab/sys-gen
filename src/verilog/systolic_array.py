@@ -9,6 +9,8 @@ from verilog.fifo import FIFO
 ################################################################################
 MODULE_NAME = 'systolic_array'
 ################################################################################
+
+
 class SystolicArray(VerilogModule):
     def __init__(self, config: Config):
         self.mac_generator = IntegerMACPE(config)
@@ -35,14 +37,14 @@ class SystolicArray(VerilogModule):
         for i in range(self.config.ROWS):
             verilog += (
                 # Row FIFO Inputs
-                f'\tinput [DATA_WIDTH-1:0] in_row_{i},\n'
+                f'\tinput signed [DATA_WIDTH-1:0] in_row_{i},\n'
                 + f'\tinput {self.row_fifo_prefix}_{i}_r_en, '
                 + f'{self.row_fifo_prefix}_{i}_w_en,\n'
             )
         for j in range(self.config.COLS):
             verilog += (
                 # Column FIFO Inputs
-                f'\tinput [DATA_WIDTH-1:0] in_col_{j},\n'
+                f'\tinput signed [DATA_WIDTH-1:0] in_col_{j},\n'
                 + f'\tinput {self.col_fifo_prefix}_{j}_r_en, '
                 + f'{self.col_fifo_prefix}_{j}_w_en,\n'
             )
@@ -66,9 +68,9 @@ class SystolicArray(VerilogModule):
                 + f'{i}_out;\n'
             )
             verilog += self.fifo_generator.generate_instance(
-                    self.row_fifo_prefix,
-                    row_id=i,
-                    in_data=f'in_row_{i}',
+                self.row_fifo_prefix,
+                row_id=i,
+                in_data=f'in_row_{i}',
             )
 
         # Instantiate FIFO connections
@@ -78,12 +80,12 @@ class SystolicArray(VerilogModule):
                 + f'{j}_out;\n'
             )
             verilog += self.fifo_generator.generate_instance(
-                    self.col_fifo_prefix,
-                    col_id=j,
-                    in_data=f'in_col_{j}',
+                self.col_fifo_prefix,
+                col_id=j,
+                in_data=f'in_col_{j}',
             )
         return verilog
-    
+
     def generate_pes(self):
         verilog = self.config.section_comment(1, 'MAC PE Instantiations')
         for i in range(self.config.ROWS):
@@ -100,7 +102,6 @@ class SystolicArray(VerilogModule):
                     i, j,
                 )
         return verilog
-
 
     def generate_module(self):
         """Generate an ROWSxCOLS systolic array of data_width precision and 

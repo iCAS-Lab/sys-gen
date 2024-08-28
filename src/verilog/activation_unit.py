@@ -9,7 +9,7 @@ from verilog.activation_element import ActivationElement
 MODULE_NAME = 'activation_unit'
 MODULE_IO = """
 (
-    input clk, rstn,
+  input clk, rstn,
 """
 ################################################################################
 
@@ -32,7 +32,7 @@ class ActivationUnit(VerilogModule):
 
         for i in range(self.config.COLS):
             verilog += f'\tinput signed [DATA_WIDTH-1:0] threshold_{i},\n'
-            verilog += f'\tinput [DATA_WIDTH-1:0] membrane_potential_{i},\n'
+            verilog += f'\tinput signed [DATA_WIDTH-1:0] membrane_potential_{i},\n'
         for i in range(self.config.COLS):
             verilog += f'\toutput [TIMER_WIDTH-1:0] accumulated_spikes_{i},\n'
             verilog += f'\toutput out_spike_{i},\n'
@@ -41,9 +41,6 @@ class ActivationUnit(VerilogModule):
 
         # Generate Activation Elements
         for i in range(self.config.COLS):
-            verilog += (
-                f'\twire threshold_to_accumulator_{i};\n'
-            )
             verilog += self.activation_element_generator.generate_instance(i)
 
         verilog += self.config.ENDMODULE

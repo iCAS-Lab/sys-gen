@@ -1,0 +1,26 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Tue Aug 27 18:44:11 2024
+# Process ID: 240572
+# Current directory: /home/psc/Repos/Spike-TPU/vivado_testing
+# Command line: vivado .
+# Log file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.log
+# Journal file: /home/psc/Repos/Spike-TPU/vivado_testing/vivado.jou
+# Running On        :sigma-icaslab
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 20.04.6 LTS
+# Processor Detail  :Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz
+# CPU Frequency     :1000.000 MHz
+# CPU Physical cores:20
+# CPU Logical cores :40
+# Host memory       :133717 MB
+# Swap memory       :34359 MB
+# Total Virtual     :168077 MB
+# Available Virtual :159404 MB
+#-----------------------------------------------------------
+start_gui
+open_project .
+exi

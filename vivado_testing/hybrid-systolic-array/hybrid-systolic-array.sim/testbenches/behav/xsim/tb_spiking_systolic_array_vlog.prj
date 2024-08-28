@@ -1,0 +1,12 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../sources/fifo.v" \
+"../../../../../sources/spiking_pe.v" \
+"../../../../../sources/spiking_systolic_array_2x2.v" \
+"../../../../../testbenches/tb_spiking_systolic_array.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

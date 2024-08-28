@@ -46,7 +46,7 @@ class SpikingSystolicArray(VerilogModule):
         for j in range(self.config.COLS):
             verilog += (
                 # Column FIFO Inputs
-                f'\tinput [DATA_WIDTH-1:0] in_col_{j},\n'
+                f'\tinput signed [DATA_WIDTH-1:0] in_col_{j},\n'
                 + f'\tinput {self.col_fifo_prefix}_{j}_r_en, '
                 + f'{self.col_fifo_prefix}_{j}_w_en,\n'
             )

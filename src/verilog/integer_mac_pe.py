@@ -17,7 +17,7 @@ MODULE_IO = """
 );
 """
 MODULE_DEFINITION = f"""
-    always @ (posedge clk or negedge rstn) begin
+    always @ (posedge clk) begin
         if (! rstn) begin
             out_data <= 0;
             out_row <= 0;
@@ -30,6 +30,8 @@ MODULE_DEFINITION = f"""
     end
 """
 ################################################################################
+
+
 class IntegerMACPE(VerilogModule):
     def __init__(self, config: Config):
         super().__init__(config=config, module_name=MODULE_NAME)
@@ -45,10 +47,10 @@ class IntegerMACPE(VerilogModule):
         return verilog
 
     def generate_instance(
-            self,
-            row_id='X',
-            col_id='X',
-        ):
+        self,
+        row_id='X',
+        col_id='X',
+    ):
         if row_id == 0 or col_id == 0:
             # Determine which port is connect to a FIFO
             in_row = f'row_fifo_{row_id}_out' if col_id == 0 else (
@@ -82,5 +84,5 @@ class IntegerMACPE(VerilogModule):
                 + f'\t\t.out_data (out_data_{row_id}_{col_id})\n'
                 + f'\t);\n'
             )
-        
+
         return instance_string
