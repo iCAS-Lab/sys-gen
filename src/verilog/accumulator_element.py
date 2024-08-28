@@ -10,7 +10,7 @@ MODULE_IO = """
 (
     input clk, rstn,
     input spike,
-    output reg [DATA_WIDTH-1:0] accumulated_spikes
+    output reg [TIMER_WIDTH-1:0] accumulated_spikes
 );
 """
 MODULE_DEFINITION = """
@@ -33,7 +33,7 @@ class AccumulatorElement(VerilogModule):
     def generate_module(self) -> str:
         verilog = (
             f'module {MODULE_NAME} '
-            + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
+            + f'#(parameter TIMER_WIDTH={self.config.ACCUMULATE_TIME_WIDTH})'
         )
         verilog += MODULE_IO
         verilog += MODULE_DEFINITION

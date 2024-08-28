@@ -14,7 +14,7 @@ MODULE_IO = """
     input signed [DATA_WIDTH-1:0] membrane_potential,
     input signed [DATA_WIDTH-1:0] in_threshold,
     output spike,
-    output signed [DATA_WIDTH-1:0] accumulated_spikes
+    output signed [TIMER_WIDTH-1:0] accumulated_spikes
 );
 """
 ################################################################################
@@ -29,7 +29,8 @@ class ActivationElement(VerilogModule):
     def generate_module(self) -> str:
         verilog = (
             f'module {MODULE_NAME} '
-            + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH})'
+            + f'#(parameter DATA_WIDTH={self.config.DATA_WIDTH}, '
+            + f'TIMER_WIDTH={self.config.ACCUMULATE_TIME_WIDTH})'
         )
         verilog += MODULE_IO
         verilog += self.threshold_unit_generator.generate_instance()

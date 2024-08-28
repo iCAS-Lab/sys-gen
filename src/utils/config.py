@@ -18,8 +18,8 @@ class Config:
         # Configurations
         self.DATA_WIDTH = 16
         self.FIFO_DEPTH = 8
-        self.ROWS = 2
-        self.COLS = 2
+        self.ROWS = 32
+        self.COLS = 32
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'

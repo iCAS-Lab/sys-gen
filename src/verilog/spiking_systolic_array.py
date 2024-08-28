@@ -50,6 +50,13 @@ class SpikingSystolicArray(VerilogModule):
                 + f'\tinput {self.col_fifo_prefix}_{j}_r_en, '
                 + f'{self.col_fifo_prefix}_{j}_w_en,\n'
             )
+        # Individual reset wires for all the Spiking PEs so the controller
+        # can reset the membrane potentials
+        for i in range(self.config.ROWS):
+            for j in range(self.config.COLS):
+                verilog += (
+                    f'\tinput rstn_{i}_{j},\n'
+                )
         # Output wires for PEs (All membrane potentials)
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
