@@ -71,13 +71,15 @@ class FIFO(VerilogModule):
         row_id='X',
         col_id='X',
         in_data=None,
-        data_width: int = None
+        data_width: int = None,
+        r_en: str = 'r_en',
+        w_en: str = 'w_en',
+        empty: str = 'fifo_empty'
     ):
         # Select index
         idx = row_id if row_id != 'X' else col_id
         out_data = f'{name}_{idx}_out'
         full = f'{name}_{idx}_full'
-        empty = f'{name}_{idx}_empty'
         overridden_data_width = ''
         if data_width is not None:
             overridden_data_width = f'#(.DATA_WIDTH({data_width}))'
@@ -85,8 +87,8 @@ class FIFO(VerilogModule):
             f'\tfifo {overridden_data_width} {name}_{idx} (\n'
             + f'\t\t.clk (clk),\n'
             + f'\t\t.rstn (rstn),\n'
-            + f'\t\t.w_en ({name}_{idx}_w_en),\n'
-            + f'\t\t.r_en ({name}_{idx}_r_en),\n'
+            + f'\t\t.w_en ({w_en}),\n'
+            + f'\t\t.r_en ({r_en}),\n'
             + f'\t\t.in_data ({in_data}),\n'
             + f'\t\t.out_data ({out_data}),\n'
             + f'\t\t.full ({full}),\n'

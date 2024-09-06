@@ -1,10 +1,8 @@
-set_host_options -max_cores 10
+define_design_lib WORK -path "./work/area"
 
-define_design_lib WORK -path "./work"
+set TopDesign "systolic_array_256x256"
 
-set TopDesign "systolic_array_32x32"
-
-set_svf ./net/syn/${TopDesign}.svf
+set_svf ./net/syn/area/${TopDesign}.svf
 
 set search_path [list /opt/hardware_tools/Free_PDK /opt/hardware_tools/Free_PDK]
 set link_library [list * NangateOpenCellLibrary_typical_conditional_nldm.db /opt/synopsys/design_compiler/syn/V-2023.12-SP5/libraries/syn/dw_foundation.sldb]
@@ -14,11 +12,9 @@ set target_library NangateOpenCellLibrary_typical_conditional_nldm.db
 # ----------------------------- RTL files List ----------------------------- #
 # -------------------------------------------------------------------------- #
 set RTL_files {\
-  demux_1_to_32.v \
 	fifo.v \
 	integer_mac_pe.v \
-	systolic_array_32x32.v \
-  mux_1024_to_1.v \
+	systolic_array_256x256.v \
 }
 
 #--------------------- Read and Analyze input RTL files
@@ -30,9 +26,12 @@ elaborate ${TopDesign}
 
 current_design ${TopDesign}
 
+set_max_area 0
+
 # -------------------------------------------------------------------------- #
 # --------------------------- Design Constraints --------------------------- #
 # -------------------------------------------------------------------------- #
+
 reset_design
 
 set auto_wire_load_selection true
@@ -40,10 +39,10 @@ set_wire_load_mode top
 
 #Creating Clock
 set clkPrd 10;
-set clkPrd_h [expr {$clkPrd / 2.0}]; #Half Clock Period
+set clkPrd_h [expr {$clkPrd / 2}]; #Half Clock Period
 set clkSkewSU [expr {$clkPrd * 0.02}]; #Clock Skew Setup
 
-create_clock -period $clkPrd -name clk; #[get_ports clk]
+create_clock clk -period $clkPrd; #[get_ports clk]
 set_clock_uncertainty -setup $clkSkewSU [get_clocks clk]
 
 set_clock_latency -source -max [expr {$clkPrd*0.05}] [get_clocks clk]
@@ -80,6 +79,7 @@ set_driving_cell -lib_cell BUF_X1 -library NangateOpenCellLibrary [all_inputs]
 # -------------------------------------------------------------------------- #
 # -------------------------     Compile_first     -------------------------- #
 # -------------------------------------------------------------------------- #
+
 compile_ultra -no_autoungroup
 puts "first iteration of compilation"
 # -------------------------------------------------------------------------- #
