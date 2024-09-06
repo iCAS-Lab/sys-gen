@@ -12,8 +12,10 @@ set target_library NangateOpenCellLibrary_typical_conditional_nldm.db
 # ----------------------------- RTL files List ----------------------------- #
 # -------------------------------------------------------------------------- #
 set RTL_files {\
+  demux_1_to_32.v \
 	fifo.v \
 	spiking_pe.v \
+  mux_1024_to_1.v \
 	spiking_systolic_array_32x32.v \
 }
 

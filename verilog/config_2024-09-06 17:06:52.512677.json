@@ -1,0 +1,13 @@
+{
+    "date": "2024-09-06 17:06:52.512677",
+    "rows": 32,
+    "cols": 32,
+    "data_width": 16,
+    "fifo_depth": 8,
+    "accumulate_interval_width": 5,
+    "module_path": "/home/psc/Repos/Spike-TPU/verilog",
+    "name": "None",
+    "company": "TODO",
+    "tool_version": "None",
+    "description": "None"
+}

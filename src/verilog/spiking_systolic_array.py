@@ -86,7 +86,7 @@ class SpikingSystolicArray(VerilogModule):
         verilog = ''
         for i in range(self.config.ROWS):
             verilog += (
-                f'\twire [DATA_WIDTH-1:0] row_demux_out_data_{i};\n'
+                f'\twire row_demux_out_data_{i};\n'
             )
         verilog += self.row_demux_generator.generate_instance(
             'row_demux',
@@ -102,7 +102,7 @@ class SpikingSystolicArray(VerilogModule):
         verilog += self.col_demux_generator.generate_instance(
             'col_demux',
             'col_select',
-            'in_row',
+            'in_col',
             'col_demux_out_data'
         )
         return verilog
@@ -141,6 +141,8 @@ class SpikingSystolicArray(VerilogModule):
         verilog = self.config.section_comment(1, 'MAC PE Instantiations')
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
+                verilog += \
+                    f'\twire rstn_{i}_{j};\n'
                 # Instantiate the wires for connecting PEs
                 verilog += \
                     f'\twire out_row_{i}_{j};\n'
