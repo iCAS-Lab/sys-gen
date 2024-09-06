@@ -2,7 +2,7 @@ DC:=./design_compiler
 
 .SILENT:
 
-all: generate copy dirs systolic-array spike-systolic-array activation-unit
+all: generate copy dirs
 
 systolic-array:
 	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_area.tcl \
@@ -15,6 +15,15 @@ spike-systolic-array:
 	| tee ./logs/spike_area_log.log &> ./logs/spike_area_nohup.txt &
 	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_spike_speed.tcl \
 	| tee ./logs/spike_speed_log.log &> ./logs/spike_speed_nohup.txt &
+
+256:
+	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_spike_area_256.tcl \
+	| tee ./logs/spike_area_log_256.log &> ./logs/spike_area_nohup_256.txt &
+	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_area_256.tcl \
+	| tee ./logs/area_log_256.log &> ./logs/area_nohup_256.txt &
+	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_activation_unit_area_256.tcl \
+	| tee ./logs/activation_unit_area_log_256.log &> ./logs/activation_unit_area_nohup_256.txt &
+
 
 activation-unit:
 	cd ${DC} && nohup dc_shell-xg-t -f ./scripts/script_activation_unit_area.tcl \
