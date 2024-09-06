@@ -27,7 +27,6 @@ end
 
 class MUX(VerilogModule):
     def __init__(self, config: Config):
-        global MODULE_NAME
         self.module_name = (
             f'{MODULE_NAME}_{config.ROWS*config.COLS}_to_'
             + f'1'
@@ -38,7 +37,7 @@ class MUX(VerilogModule):
     def generate_module(self):
         verilog = ''
         verilog += (
-            f'module {MODULE_NAME} #(parameter '
+            f'module {self.module_name} #(parameter '
             + f'SELECT_WIDTH={self.select_width}, '
             + f'DATA_WIDTH={self.config.DATA_WIDTH}) '
         )

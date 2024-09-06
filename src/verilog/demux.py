@@ -38,7 +38,7 @@ class DEMUX(VerilogModule):
     def generate_module(self):
         verilog = ''
         verilog += (
-            f'module {MODULE_NAME} #(parameter '
+            f'module {self.module_name} #(parameter '
             + f'SELECT_WIDTH={self.select_width}, '
             + f'DATA_WIDTH={self.config.DATA_WIDTH}) '
         )

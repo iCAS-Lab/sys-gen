@@ -80,6 +80,7 @@ class FIFO(VerilogModule):
         idx = row_id if row_id != 'X' else col_id
         out_data = f'{name}_{idx}_out'
         full = f'{name}_{idx}_full'
+        empty = f'{name}_{idx}_empty'
         overridden_data_width = ''
         if data_width is not None:
             overridden_data_width = f'#(.DATA_WIDTH({data_width}))'
