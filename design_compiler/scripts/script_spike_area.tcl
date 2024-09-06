@@ -1,3 +1,5 @@
+set_host_options -max_cores 10
+
 define_design_lib WORK -path "./work/spike_area"
 
 set TopDesign "spiking_systolic_array_32x32"
