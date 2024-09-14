@@ -53,7 +53,8 @@ class SpikingPE(VerilogModule):
     def generate_instance(
             self,
             row_id='X',
-            col_id='X'
+            col_id='X',
+            rstn='rstn_pe'
     ):
         if row_id == 0 or col_id == 0:
             # Determine which port is connect to a FIFO
@@ -66,7 +67,7 @@ class SpikingPE(VerilogModule):
             instance_string = (
                 f'\t{MODULE_NAME} spiking_pe_{row_id}_{col_id} (\n'
                 + f'\t\t.clk (clk),\n'
-                + f'\t\t.rstn (rstn_{row_id}_{col_id}),\n'
+                + f'\t\t.rstn ({rstn}),\n'
                 + f'\t\t.in_row ({in_row}),\n'
                 + f'\t\t.in_col ({in_col}),\n'
                 + f'\t\t.out_row (out_row_{row_id}_{col_id}),\n'
@@ -78,7 +79,7 @@ class SpikingPE(VerilogModule):
             instance_string = (
                 f'\t{MODULE_NAME} spiking_pe_{row_id}_{col_id} (\n'
                 + f'\t\t.clk (clk),\n'
-                + f'\t\t.rstn (rstn_{row_id}_{col_id}),\n'
+                + f'\t\t.rstn ({rstn}),\n'
                 # Connect inputs to previous PE outputs
                 + f'\t\t.in_row (out_row_{row_id}_{col_id-1}),\n'
                 + f'\t\t.in_col (out_col_{row_id-1}_{col_id}),\n'

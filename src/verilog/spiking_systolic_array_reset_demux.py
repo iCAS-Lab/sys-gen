@@ -15,12 +15,16 @@ MODULE_NAME = 'spiking_systolic_array'
 
 class SpikingSystolicArray(VerilogModule):
     def __init__(self, config: Config):
+        self.rstn_pe_demux_select_width = len(
+            bin(config.ROWS*config.COLS)[2:]) - 1
         self.row_demux_select_width = len(bin(config.ROWS)[2:]) - 1
         self.col_demux_select_width = len(bin(config.COLS)[2:]) - 1
         self.mux_select_width = len(bin(config.ROWS*config.COLS)[2:]) - 1
         self.pe_generator = SpikingPE(config)
         self.fifo_generator = FIFO(config)
         self.mux_generator = MUX(config)
+        self.rstn_pe_demux_generator = DEMUX(
+            config, num_out=config.ROWS*config.COLS)
         self.row_demux_generator = DEMUX(config, num_out=config.ROWS)
         self.col_demux_generator = DEMUX(config, num_out=config.COLS)
         self.row_fifo_prefix = 'row_fifo'
@@ -58,6 +62,13 @@ class SpikingSystolicArray(VerilogModule):
         verilog += (
             # Row FIFO Inputs
             f'\tinput in_row,\n'  # One bit
+        )
+        # Single bit input to reset any particular PE
+        verilog += (
+            f'\tinput rstn_pe_in,\n'
+        )
+        verilog += (
+            f'\tinput [{self.rstn_pe_demux_select_width-1}:0] rstn_pe_select,\n'
         )
         # Weight inputs to FIFOs
         verilog += (
@@ -105,6 +116,25 @@ class SpikingSystolicArray(VerilogModule):
             'in_col',
             'col_demux_out_data'
         )
+        for i in range(self.config.ROWS*self.config.COLS):
+            verilog += \
+                f'\twire rstn_pe_demux_out_{i};\n'
+            verilog += \
+                f'\twire rstn_pe_{i};\n'
+
+        # Reset logic for per PE reset
+        verilog += self.rstn_pe_demux_generator.generate_instance(
+            'rstn_pe_demux',
+            'rstn_pe_select',
+            'rstn_pe_in',
+            'rstn_pe_demux_out',
+            data_width=1
+        )
+        for i in range(self.config.ROWS*self.config.COLS):
+            verilog += (
+                f'\tassign rstn_pe_{i} = (rstn_pe_demux_out_{i} | ~rstn) '
+                + '? 0: 1;\n'
+            )
         return verilog
 
     def generate_fifos(self):
@@ -139,6 +169,7 @@ class SpikingSystolicArray(VerilogModule):
 
     def generate_pes(self):
         verilog = self.config.section_comment(1, 'MAC PE Instantiations')
+        counter = 0
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
                 # Instantiate the wires for connecting PEs
@@ -152,8 +183,9 @@ class SpikingSystolicArray(VerilogModule):
                     + f'out_data_{i}_{j};\n'
                 # Instantiate the next PE and connect
                 verilog += self.pe_generator.generate_instance(
-                    i, j, 'rstn'
+                    i, j, rstn=f'rstn_pe_{counter}'
                 )
+                counter += 1
         return verilog
 
     def generate_muxes(self):

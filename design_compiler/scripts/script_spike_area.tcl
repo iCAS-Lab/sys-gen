@@ -1,10 +1,10 @@
 set_host_options -max_cores 10
 
-define_design_lib WORK -path "./work/spike_area"
+define_design_lib WORK -path "./"
 
 set TopDesign "spiking_systolic_array_32x32"
 
-set_svf ./net/syn/spike_area/${TopDesign}.svf
+set_svf ./${TopDesign}.svf
 
 set search_path [list /opt/hardware_tools/Free_PDK /opt/hardware_tools/Free_PDK]
 set link_library [list * NangateOpenCellLibrary_typical_conditional_nldm.db /opt/synopsys/design_compiler/syn/V-2023.12-SP5/libraries/syn/dw_foundation.sldb]
@@ -15,6 +15,7 @@ set target_library NangateOpenCellLibrary_typical_conditional_nldm.db
 # -------------------------------------------------------------------------- #
 set RTL_files {\
   demux_1_to_32.v \
+  demux_1_to_1024.v \
 	fifo.v \
 	spiking_pe.v \
   mux_1024_to_1.v \
@@ -23,7 +24,7 @@ set RTL_files {\
 
 #--------------------- Read and Analyze input RTL files
 foreach design $RTL_files {
-  analyze -format verilog ./net/rtl/${design}
+  analyze -format verilog ./${design}
 }
 
 elaborate ${TopDesign}
@@ -98,14 +99,14 @@ compile_ultra -no_autoungroup -incremental
 
 report_constraint -all_violators
 
-report_clock -attributes -skew  > ./reports/spike_area/report_clock.txt
-report_hierarchy                > ./reports/spike_area/report_hier.txt
-report_compile_options          > ./reports/spike_area/report_option.txt
-report_resources -hierarchy     > ./reports/spike_area/report_resource.txt
-report_port -verbose            > ./reports/spike_area/report_port.txt
-all_registers -level_sensitive  > ./reports/spike_area/report_latches.txt
-report_timing -loops            > ./reports/spike_area/report_loops.txt
-report_power                    > ./reports/spike_area/report_power.txt
+report_clock -attributes -skew      > ./reports/spike_area/report_clock.txt
+report_hierarchy                    > ./reports/spike_area/report_hier.txt
+report_compile_options              > ./reports/spike_area/report_option.txt
+report_resources -hierarchy         > ./reports/spike_area/report_resource.txt
+report_port -verbose                > ./reports/spike_area/report_port.txt
+all_registers -level_sensitive      > ./reports/spike_area/report_latches.txt
+report_timing -loops                > ./reports/spike_area/report_loops.txt
+report_power -analysis_effort high  > ./reports/spike_area/report_power.txt
 
 report_timing > reports/spike_area/report_timing.txt
 

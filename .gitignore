@@ -233,3 +233,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/python,macos,windows
+
+Spike-TPU-Results/
+dc256x256/
+design_compiler/syn/
+design_compiler/net/

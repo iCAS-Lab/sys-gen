@@ -102,7 +102,7 @@ class SystolicArray(VerilogModule):
         verilog += self.col_demux_generator.generate_instance(
             'col_demux',
             'col_select',
-            'in_row',
+            'in_col',
             'col_demux_out_data'
         )
         return verilog
