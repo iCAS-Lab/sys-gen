@@ -238,3 +238,5 @@ Spike-TPU-Results/
 dc256x256/
 design_compiler/syn/
 design_compiler/net/
+z_OLD/
+32x32_8b_timing_closure/

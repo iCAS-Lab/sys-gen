@@ -1,8 +1,10 @@
-define_design_lib WORK -path "./work/speed"
+set_host_options -max_cores 8
+
+define_design_lib WORK -path "./results"
 
 set TopDesign "systolic_array_32x32"
 
-set_svf ./net/syn/speed/${TopDesign}.svf
+set_svf ./results/${TopDesign}.svf
 
 set search_path [list /opt/hardware_tools/Free_PDK /opt/hardware_tools/Free_PDK]
 set link_library [list * NangateOpenCellLibrary_typical_conditional_nldm.db /opt/synopsys/design_compiler/syn/V-2023.12-SP5/libraries/syn/dw_foundation.sldb]
@@ -12,24 +14,26 @@ set target_library NangateOpenCellLibrary_typical_conditional_nldm.db
 # ----------------------------- RTL files List ----------------------------- #
 # -------------------------------------------------------------------------- #
 set RTL_files {\
+  demux_1_to_32.v \
 	fifo.v \
 	integer_mac_pe.v \
 	systolic_array_32x32.v \
+  mux_1024_to_1.v \
 }
 
 #--------------------- Read and Analyze input RTL files
 foreach design $RTL_files {
-  analyze -format verilog ./net/rtl/${design}
+  analyze -format verilog ./rtl/${design}
 }
 
 elaborate ${TopDesign}
 
 current_design ${TopDesign}
 
+set_max_area 0
 # -------------------------------------------------------------------------- #
 # --------------------------- Design Constraints --------------------------- #
 # -------------------------------------------------------------------------- #
-
 reset_design
 
 set auto_wire_load_selection true
@@ -37,10 +41,10 @@ set_wire_load_mode top
 
 #Creating Clock
 set clkPrd 10;
-set clkPrd_h [expr {$clkPrd / 2}]; #Half Clock Period
+set clkPrd_h [expr {$clkPrd / 2.0}]; #Half Clock Period
 set clkSkewSU [expr {$clkPrd * 0.02}]; #Clock Skew Setup
 
-create_clock clk -period $clkPrd; #[get_ports clk]
+create_clock -period $clkPrd -name clk; #[get_ports clk]
 set_clock_uncertainty -setup $clkSkewSU [get_clocks clk]
 
 set_clock_latency -source -max [expr {$clkPrd*0.05}] [get_clocks clk]
@@ -77,7 +81,6 @@ set_driving_cell -lib_cell BUF_X1 -library NangateOpenCellLibrary [all_inputs]
 # -------------------------------------------------------------------------- #
 # -------------------------     Compile_first     -------------------------- #
 # -------------------------------------------------------------------------- #
-
 compile_ultra -no_autoungroup
 puts "first iteration of compilation"
 # -------------------------------------------------------------------------- #
@@ -92,34 +95,34 @@ compile_ultra -no_autoungroup -incremental
 
 report_constraint -all_violators
 
-report_clock -attributes -skew  > ./reports/speed/report_clock.txt
-report_hierarchy                > ./reports/speed/report_hier.txt
-report_compile_options          > ./reports/speed/report_option.txt
-report_resources -hierarchy     > ./reports/speed/report_resource.txt
-report_port -verbose            > ./reports/speed/report_port.txt
-all_registers -level_sensitive  > ./reports/speed/report_latches.txt
-report_timing -loops            > ./reports/speed/report_loops.txt
-report_power                    > ./reports/speed/report_power.txt
+report_clock -attributes -skew  > ./results/report_clock.txt
+report_hierarchy                > ./results/report_hier.txt
+report_compile_options          > ./results/report_option.txt
+report_resources -hierarchy     > ./results/report_resource.txt
+report_port -verbose            > ./results/report_port.txt
+all_registers -level_sensitive  > ./results/report_latches.txt
+report_timing -loops            > ./results/report_loops.txt
+report_power                    > ./results/report_power.txt
 
-report_timing > reports/speed/report_timing.txt
+report_timing > report_timing.txt
 
 # maximum transition violation
 report_constraint -all_violators -max_transition -nosplit -significant_digits 4 \
-                                > ./reports/speed/report_maxttransitions.txt
+                                > ./results/report_maxttransitions.txt
 
 # maximum fanout violation
 report_constraint -all_violators -max_fanout -nosplit -significant_digits 4 \
-                                > ./reports/speed/report_maxfanout.txt
+                                > ./results/report_maxfanout.txt
 
 # setup violation report
 report_constraint -all_violators -max_delay -nosplit -significant_digits 4 \
-                                > ./reports/speed/report_vio_max_simple.txt
+                                > ./results/report_vio_max_simple.txt
 
 report_constraint -all_violators -max_delay -nosplit -significant_digits 4 -verbose \
-                                > ./reports/speed/report_vio_max_verbose.txt
+                                > ./results/report_vio_max_verbose.txt
 
 
-report_area     > ./reports/speed/report_area.txt
+report_area     > ./results/report_area.txt
 
 # -------------------------------------------------------------------------- #
 # ------------------------     Generate Outputs     ------------------------ #
@@ -132,13 +135,13 @@ define_name_rules verilog -remove_internal_net_bus -equal_ports_nets
 change_names -rules verilog -hierarchy
 
 #write_file -format ddc     -output $DdcFile  -hierarchy
-write_file -format ddc     -output ./net/syn/speed/$TopDesign.ddc  -hierarchy
+write_file -format ddc     -output ./results/$TopDesign.ddc  -hierarchy
 
-write_file -format verilog -output ./net/syn/speed/$TopDesign.syn.v -hierarchy
+write_file -format verilog -output ./results/$TopDesign.syn.v -hierarchy
 
-write_sdc net/syn/speed/$TopDesign.sdc
+write_sdc ./results/$TopDesign.sdc
 
-write_sdf net/syn/speed/$TopDesign.sdf
+write_sdf ./results/$TopDesign.sdf
 
 #
 
