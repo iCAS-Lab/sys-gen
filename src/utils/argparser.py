@@ -3,6 +3,7 @@
 ################################################################################
 # Std libs
 import argparse
+import shutil
 from pathlib import Path
 
 # Local libs
@@ -24,6 +25,7 @@ def parse_arguments():
     parser.add_argument(
         '-o', '--output-path',
         type=str,
+        default="./generated_rtl",
         help='The path to write the verilog and configuration to'
     )
     # Systolic array size
@@ -43,7 +45,7 @@ def parse_arguments():
     parser.add_argument(
         '-d', '--data-width',
         type=int,
-        default=16,
+        default=8,
         help='Precision of integer computations'
     )
     parser.add_argument(
@@ -83,10 +85,6 @@ def parse_arguments():
 
 
 def set_config(args, config: Config):
-    if args.output_path is not None:
-        config.MODULE_PATH = Path(args.output_path)
-        if not Path(args.output_path).exists():
-            config.MODULE_PATH.mkdir()
     config.ROWS = args.rows
     config.COLS = args.cols
     config.DATA_WIDTH = args.data_width
@@ -96,3 +94,6 @@ def set_config(args, config: Config):
     config.TARGET_DEVICES = str(args.target_device)
     config.TOOL_VERSION = str(args.tool_version)
     config.DESCRIPTION = str(args.description)
+    config.MODULE_PATH = Path(args.output_path)
+    if not config.MODULE_PATH.exists():
+        config.MODULE_PATH.mkdir(parents=True)

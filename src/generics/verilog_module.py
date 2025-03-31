@@ -31,14 +31,18 @@ from utils.config import Config
 #    end
 # """
 ################################################################################
+
+
 class VerilogModule(abc.ABC):
 
     @abc.abstractmethod
     def __init__(self, config: Config, module_name: str):
         self.config = config
         self.verilog = self.generate_module()
-        self.write(module_name+'.v')
-    
+        self.out_file = self.verilog + '.v'
+        self.write(self.out_file)
+        self.children_modules = []
+
     def write(self, fname: str):
         """
         Writes the verilog definition of each module to its own

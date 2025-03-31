@@ -25,4 +25,4 @@ if __name__ == '__main__':
     # Build verilog
     systolic_array = SystolicArray(config=config)
     spiking_systolic_array = SpikingSystolicArray(config=config)
-    activation_unit = ActivationUnit(config=config)
+    # activation_unit = ActivationUnit(config=config)
