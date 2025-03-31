@@ -25,8 +25,15 @@ class Config:
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
-        self.OUT_PATH = Path.cwd() / 'experiments'
+
+        # Paths
+        self._OUT_PATH = Path.cwd() / 'experiment'
         self.MODULE_PATH = self.OUT_PATH / 'rtl'
+        self.paths = [
+            'rtl',
+            'work',
+            'logs'
+        ]
 
         # Accumulator settings
         self.ACCUMULATE_TIME_WIDTH = 5
@@ -50,10 +57,6 @@ class Config:
         # Generate the verilog heading
         self.HEADER = ''
         self.update_header()
-
-        # Init directories
-        shutil.rmtree(self.MODULE_PATH, ignore_errors=True)
-        Path.mkdir(self.MODULE_PATH, exist_ok=True)
 
     def update_header(self):
         """Update the header to be used at the beginning of each verilog module.
@@ -103,5 +106,24 @@ class Config:
         pass
 
     def write(self):
-        with open(self.MODULE_PATH / f'config_{self.DATE}.json', 'w') as f:
+        with open(self.OUT_PATH / f'config_{self.DATE}.json', 'w') as f:
             f.write(json.dumps(dict(self), indent=4))
+
+    @property
+    def OUT_PATH(self):
+        return self._OUT_PATH
+
+    @OUT_PATH.setter
+    def OUT_PATH(self, new_path: Path):
+        self._OUT_PATH = new_path
+        self.MODULE_PATH = self.OUT_PATH / 'rtl'
+
+    def init_paths(self):
+        """Cleanup directory structure and create directories for generated
+        output to be stored.
+        """
+        shutil.rmtree(self.OUT_PATH, ignore_errors=True)
+        for p_str in self.paths:
+            p = Path(self.OUT_PATH / p_str)
+            if not p.exists():
+                p.mkdir(parents=True, exist_ok=True)

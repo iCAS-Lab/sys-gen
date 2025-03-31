@@ -25,7 +25,7 @@ def parse_arguments():
     parser.add_argument(
         '-o', '--output-path',
         type=str,
-        default="./generated_rtl",
+        default='./experiment',
         help='The path to write the verilog and configuration to'
     )
     # Systolic array size
@@ -95,5 +95,4 @@ def set_config(args, config: Config):
     config.TOOL_VERSION = str(args.tool_version)
     config.DESCRIPTION = str(args.description)
     config.OUT_PATH = Path(args.output_path)
-    if not config.OUT_PATH.exists():
-        config.OUT_PATH.mkdir(parents=True, exist_ok=True)
+    config.init_paths()
