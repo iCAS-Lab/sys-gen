@@ -22,8 +22,8 @@ def get_all_verilog_files(
     :param out_files: List of verilog files for all verilog modules.
     :type out_files: ty.List[str]
     """
+    out_files.append(parent_module.out_file)
     for child in parent_module.children_modules:
-        out_files.append(child.out_file)
         get_all_verilog_files(child, out_files)
 
 
