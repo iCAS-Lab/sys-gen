@@ -39,7 +39,7 @@ class VerilogModule(abc.ABC):
     def __init__(self, config: Config, module_name: str):
         self.config = config
         self.verilog = self.generate_module()
-        self.out_file = self.verilog + '.v'
+        self.out_file = module_name + '.v'
         self.write(self.out_file)
         self.children_modules = []
 
