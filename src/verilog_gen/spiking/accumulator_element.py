@@ -3,8 +3,8 @@
 ################################################################################
 # Local libs
 from generics.verilog_module import VerilogModule
-from utils.config import Config\
-    ################################################################################
+from utils.config import Config
+################################################################################
 MODULE_NAME = 'accumulator_element'
 MODULE_IO = """
 (

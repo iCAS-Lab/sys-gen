@@ -4,10 +4,10 @@
 # Local Libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
-from verilog.fifo import FIFO
-from verilog.integer_mac_pe import IntegerMACPE
-from verilog.mux import MUX
-from verilog.demux import DEMUX
+from verilog_gen.utils.fifo import FIFO
+from verilog_gen.integer.integer_mac_pe import IntegerMACPE
+from verilog_gen.utils.mux import MUX
+from verilog_gen.utils.demux import DEMUX
 ################################################################################
 MODULE_NAME = 'systolic_array'
 ################################################################################

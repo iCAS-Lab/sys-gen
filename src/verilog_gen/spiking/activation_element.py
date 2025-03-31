@@ -4,8 +4,8 @@
 # Local Libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
-from verilog.threshold_element import ThresholdElement
-from verilog.accumulator_element import AccumulatorElement
+from verilog_gen.spiking.threshold_element import ThresholdElement
+from verilog_gen.spiking.accumulator_element import AccumulatorElement
 ################################################################################
 MODULE_NAME = 'activation_element'
 MODULE_IO = """

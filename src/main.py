@@ -9,9 +9,9 @@ from pathlib import Path
 # Local Libs
 from utils.argparser import parse_arguments, set_config
 from utils.config import Config
-from verilog.systolic_array import SystolicArray
-from verilog.spiking_systolic_array import SpikingSystolicArray
-from verilog.activation_unit import ActivationUnit
+from verilog_gen.integer.systolic_array import SystolicArray
+from verilog_gen.spiking.spiking_systolic_array import SpikingSystolicArray
+from verilog_gen.spiking.activation_unit import ActivationUnit
 ################################################################################
 if __name__ == '__main__':
     # Parse arguments passed in by the user

@@ -4,7 +4,7 @@
 # Local Libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
-from verilog.activation_element import ActivationElement
+from verilog_gen.spiking.activation_element import ActivationElement
 ################################################################################
 MODULE_NAME = 'activation_unit'
 MODULE_IO = """

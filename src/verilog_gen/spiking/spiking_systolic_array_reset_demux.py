@@ -4,10 +4,10 @@
 # Local Libs
 from generics.verilog_module import VerilogModule
 from utils.config import Config
-from verilog.spikepe import SpikingPE
-from verilog.fifo import FIFO
-from verilog.demux import DEMUX
-from verilog.mux import MUX
+from verilog_gen.spiking.spikepe import SpikingPE
+from verilog_gen.utils.fifo import FIFO
+from verilog_gen.utils.demux import DEMUX
+from verilog_gen.utils.mux import MUX
 ################################################################################
 MODULE_NAME = 'spiking_systolic_array'
 ################################################################################
