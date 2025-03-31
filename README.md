@@ -49,7 +49,7 @@ Initialize the Python environment using the packages included in `env.yml`:
 conda env create -f ./env.yml
 ```
 
-Run the following command to generate a simple 32x32 integer systolic array.
+Run the following command to generate a simple 32x32 8-bit integer Output-Stationary (OS) systolic array.
 
 ```
 python src/main.py
@@ -104,3 +104,5 @@ In the future, we hope to further develop this pipeline to deploy the synthesize
 - Need to implement Fixed-Point and Floating-Point architectures
 - Need to ensure that logic is signed for weights and membrane potential
 - More than one type of design optimization (Area? Power? etc.)
+- Add systolic arrays with different dataflows (IS and WS)
+- Currently, the outputs of the PEs is truncated to the same input bitwidth. Need to parameterize this.
