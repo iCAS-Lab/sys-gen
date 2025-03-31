@@ -14,6 +14,21 @@ from verilog_gen.integer.systolic_array import SystolicArray
 from verilog_gen.spiking.spiking_systolic_array import SpikingSystolicArray
 from verilog_gen.spiking.activation_unit import ActivationUnit
 ################################################################################
+
+
+def match_task(task: str, config: Config):
+    if task == 'integer':
+        # Default
+        systolic_array = SystolicArray(config)
+    elif task == 'spiking':
+        systolic_array = SpikingSystolicArray(config)
+    else:
+        raise ValueError(f'Predefined generation task {task} not valid.')
+    # Generate TCL Script
+    TCLGenerator(systolic_array, config).write()
+
+
+################################################################################
 if __name__ == '__main__':
     # Parse arguments passed in by the user
     args = parse_arguments()
@@ -23,11 +38,5 @@ if __name__ == '__main__':
     set_config(args, config)
     config.write()
 
-    # Build verilog
-    systolic_array = SystolicArray(config=config)
-    spiking_systolic_array = SpikingSystolicArray(config=config)
-    # activation_unit = ActivationUnit(config=config)
-
-    # Write the TCL scripts
-    TCLGenerator(systolic_array, config).write()
-    TCLGenerator(spiking_systolic_array, config).write()
+    for task in config.TASKS:
+        match_task(task, config)

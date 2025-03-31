@@ -25,6 +25,7 @@ class Config:
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
+        self.TASKS = []
 
         # Paths
         self._OUT_PATH = Path.cwd() / 'experiment'
@@ -32,7 +33,8 @@ class Config:
         self.paths = [
             'rtl',
             'work',
-            'logs'
+            'logs',
+            'reports'
         ]
 
         # Accumulator settings

@@ -66,6 +66,13 @@ def parse_arguments():
         help='Name of the developer in verilog heading'
     )
     parser.add_argument(
+        '-g', '--generate',
+        type=str,
+        help='Specify a comma separated list of predefined systolic arrays'
+        + ' to generate.',
+        default='integer'
+    )
+    parser.add_argument(
         '--target-device',
         type=str,
         help='Name of the device the verilog code is targeting'
@@ -95,4 +102,5 @@ def set_config(args, config: Config):
     config.TOOL_VERSION = str(args.tool_version)
     config.DESCRIPTION = str(args.description)
     config.OUT_PATH = Path(args.output_path)
+    config.TASKS = args.generate.split(',')
     config.init_paths()

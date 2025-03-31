@@ -10,15 +10,18 @@ from pathlib import Path
 
 
 class TCLGenerator:
-    def __init__(self, top_module: VerilogModule, config: Config):
-        # TODO: Loop through each module and generate the proper TCL scripts
-        # We will need to modify the verilog classes to store their children in
-        # a list to do so.
+    def __init__(
+        self,
+        top_module: VerilogModule,
+        config: Config,
+        skip_outputs: bool = True
+    ):
         self.config = config
         self.run_cores = 8
         self.work_path = './work'
         self.top_module = top_module
         self.top_module_name = self.top_module.module_name
+        self.skip_outputs = skip_outputs
         self.search_path = [
             '/opt/hardware_tools/Free_PDK /opt/hardware_tools/Free_PDK'
         ]
@@ -163,7 +166,60 @@ class TCLGenerator:
 
         puts "Final compilation stage" 
         compile_ultra -no_autoungroup
-        """)
+        \n""")
+        return script
+
+    def compile(self):
+        section_title = ' Final Compile of Best Timing '
+        script = self.section_dividers
+        script += replace_middle_string(self.section_dividers, section_title)
+        script += self.section_dividers
+        script += textwrap.dedent("""
+        compile_ultra -no_autoungroup -incremental
+        puts "Starting generating reports"
+        \n""")
+        return script
+
+    def create_reports(self):
+        section_title = ' Generate Reports '
+        script = self.section_dividers
+        script += replace_middle_string(self.section_dividers, section_title)
+        script += self.section_dividers
+        script += textwrap.dedent("""
+        report_constraint -all_violators
+        report_clock -attributes -skew  > ./reports/report_clock.txt
+        report_hierarchy                > ./reports/report_hier.txt
+        report_compile_options          > ./reports/report_option.txt
+        report_resources -hierarchy     > ./reports/report_resource.txt
+        report_port -verbose            > ./reports/report_port.txt
+        all_registers -level_sensitive  > ./reports/report_latches.txt
+        report_timing -loops            > ./reports/report_loops.txt
+        report_power                    > ./reports/report_power.txt
+        report_timing                   > ./reports/report_timing.txt
+        # maximum transition violation
+        report_constraint -all_violators -max_transition -nosplit -significant_digits 4 \\
+                                        > ./reports/report_maxttransitions.txt
+        # maximum fanout violation
+        report_constraint -all_violators -max_fanout -nosplit -significant_digits 4 \\
+                                        > ./reports/report_maxfanout.txt
+        # setup violation report
+        report_constraint -all_violators -max_delay -nosplit -significant_digits 4 \\
+                                        > ./reports/report_vio_max_simple.txt
+        report_constraint -all_violators -max_delay -nosplit -significant_digits 4 -verbose \\
+                                        > ./reports/report_vio_max_verbose.txt
+        report_area                     > ./reports/report_area.txt
+        \n""")
+        return script
+
+    def generate_outputs(self):
+        if self.skip_outputs:
+            return '\n# Skipped Generating Output\n'
+        section_title = ' Generate Outputs '
+        script = self.section_dividers
+        script += replace_middle_string(self.section_dividers, section_title)
+        script += self.section_dividers
+        script += textwrap.dedent("""
+        \n""")
         return script
 
     def write(self):
@@ -174,3 +230,7 @@ class TCLGenerator:
             f.write(self.init_rtl_files())
             f.write(self.init_design_constraints())
             f.write(self.init_timing_closure())
+            f.write(self.compile())
+            f.write(self.create_reports())
+            f.write(self.generate_outputs())
+            f.write('\nquit\n')
