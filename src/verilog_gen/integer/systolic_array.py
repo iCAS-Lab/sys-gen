@@ -31,6 +31,14 @@ class SystolicArray(VerilogModule):
             module_name=f'{MODULE_NAME}_{config.ROWS}x{config.COLS}'
         )
 
+        self.children_modules = [
+            self.mac_generator,
+            self.fifo_generator,
+            self.mux_generator,
+            self.row_demux_generator,
+            self.col_demux_generator
+        ]
+
     def generate_definition(self):
         # Module definition
         verilog = (

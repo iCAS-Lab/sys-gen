@@ -94,6 +94,6 @@ def set_config(args, config: Config):
     config.TARGET_DEVICES = str(args.target_device)
     config.TOOL_VERSION = str(args.tool_version)
     config.DESCRIPTION = str(args.description)
-    config.MODULE_PATH = Path(args.output_path)
-    if not config.MODULE_PATH.exists():
-        config.MODULE_PATH.mkdir(parents=True)
+    config.OUT_PATH = Path(args.output_path)
+    if not config.OUT_PATH.exists():
+        config.OUT_PATH.mkdir(parents=True, exist_ok=True)

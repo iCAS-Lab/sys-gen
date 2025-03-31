@@ -33,6 +33,14 @@ class SpikingSystolicArray(VerilogModule):
             config=config,
             module_name=f'{MODULE_NAME}_{config.ROWS}x{config.COLS}'
         )
+        self.children_modules = [
+            self.pe_generator,
+            self.fifo_generator,
+            self.mux_generator,
+            self.rstn_pe_demux_generator,
+            self.row_demux_generator,
+            self.col_demux_generator
+        ]
 
     def generate_definition(self):
         # Module definition

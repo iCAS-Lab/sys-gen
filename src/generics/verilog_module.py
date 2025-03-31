@@ -9,6 +9,7 @@ requires the following to be implemented:
 ################################################################################
 # Std Libs
 import abc
+import typing as ty
 
 # Local Libs
 from utils.config import Config
@@ -39,9 +40,10 @@ class VerilogModule(abc.ABC):
     def __init__(self, config: Config, module_name: str):
         self.config = config
         self.verilog = self.generate_module()
-        self.out_file = module_name + '.v'
+        self.module_name = module_name
+        self.out_file = self.module_name + '.v'
         self.write(self.out_file)
-        self.children_modules = []
+        self.children_modules: ty.List[VerilogModule] = []
 
     def write(self, fname: str):
         """

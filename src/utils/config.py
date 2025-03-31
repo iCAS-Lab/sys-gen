@@ -25,7 +25,8 @@ class Config:
         self.CLK = 'clk'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
-        self.MODULE_PATH = Path.cwd() / 'generated_rtl'
+        self.OUT_PATH = Path.cwd() / 'experiments'
+        self.MODULE_PATH = self.OUT_PATH / 'rtl'
 
         # Accumulator settings
         self.ACCUMULATE_TIME_WIDTH = 5
