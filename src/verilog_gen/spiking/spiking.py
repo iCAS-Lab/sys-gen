@@ -5,7 +5,7 @@
 
 # Local libs
 from utils.config import Config
-from utils.generate_tcl_script import TCLGenerator
+from src.utils.tcl_generator import TCLGenerator
 from verilog_gen.spiking.spiking_systolic_array import SpikingSystolicArray
 ################################################################################
 
