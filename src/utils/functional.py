@@ -22,7 +22,7 @@ def get_all_verilog_files(
     :param out_files: List of verilog files for all verilog modules.
     :type out_files: ty.List[str]
     """
-    out_files.append(parent_module.out_file)
+    out_files.append(parent_module.mod_out_file)
     for child in parent_module.children_modules:
         get_all_verilog_files(child, out_files)
 
@@ -45,3 +45,15 @@ def replace_middle_string(
     mid_start = (len_big - len_mid) // 2
     mid_end = mid_start + len_mid
     return big_string[:mid_start] + middle_string + big_string[mid_end:]
+
+
+def generate_all_testbenches(parent_module: VerilogModule):
+    """Recursively navigates through the modules using BFS to generate all of
+    the testbenches.
+
+    :param parent_module: A parent module to start the recursion from.
+    :type parent_module: VerilogModule
+    """
+    parent_module.write_testbench(parent_module.tb_out_file)
+    for child in parent_module.children_modules:
+        generate_all_testbenches(child)

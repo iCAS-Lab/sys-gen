@@ -191,4 +191,7 @@ class SystolicArray(VerilogModule):
         return verilog
 
     def generate_instance(self):
-        pass
+        return ''
+
+    def generate_testbench(self):
+        return ''

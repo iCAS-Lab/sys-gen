@@ -10,7 +10,8 @@ templates.
 import datetime
 import json
 import shutil
-import math
+import textwrap
+import typing as ty
 from pathlib import Path
 ################################################################################
 
@@ -22,7 +23,9 @@ class Config:
         self.FIFO_DEPTH = 8
         self.ROWS = 32
         self.COLS = 32
+        self.VERILOG_SEED = 123
         self.CLK = 'clk'
+        self.CLK_T = '1'
         self.RSTN = 'rstn'
         self.ENDMODULE = '\nendmodule\n'
         self.TASKS = []
@@ -55,6 +58,9 @@ class Config:
         # Styling
         self.LINE_LENGTH = 80
         self.COMMENT = '//'
+        self.TAB_CHARS = '  '
+        self.TAB_LEN = 0
+        self.FCMT = '// {}\n'
         self.COMMENT_LINE = self.COMMENT * 40
         self.HALF_COMMENT_LINE = self.COMMENT * 20
 
@@ -112,6 +118,34 @@ class Config:
     def write(self):
         with open(self.OUT_PATH / f'config_{self.DATE}.json', 'w') as f:
             f.write(json.dumps(dict(self), indent=4))
+
+    def line(self, in_str: str, tabs: int = None) -> str:
+        if tabs:
+            return self.TAB_CHARS*tabs + in_str + '\n'
+        else:
+            return self.TAB_CHARS*self.TAB_LEN + in_str + '\n'
+
+    def cline(self, in_str: str, tabs: int = None) -> str:
+        if tabs:
+            return self.TAB_CHARS*tabs + self.FCMT.format(in_str)
+        else:
+            return self.TAB_CHARS*self.TAB_LEN + self.FCMT.format(in_str)
+
+    def tinc(self):
+        self.TAB_LEN += 1
+
+    def tdec(self):
+        self.TAB_LEN -= 1
+
+    def reset_tlen(self):
+        self.TAB_LEN = 0
+
+    def indent(self, in_str: str) -> str:
+        split_str = textwrap.dedent(in_str).strip().split('\n')
+        split_str = '\n'.join(
+            [self.TAB_CHARS*self.TAB_LEN + i for i in split_str]
+        )
+        return split_str
 
     @property
     def OUT_PATH(self):

@@ -14,24 +14,6 @@ import typing as ty
 # Local Libs
 from utils.config import Config
 ################################################################################
-# To enable easily editing of the functional verilog code please place
-# verilog code docstrings at the top of the VerilogModule derived class here.
-# For Example:
-# MODULE_NAME = 'mac'
-# MODULE_IO = """
-# (
-#     input clk, rstn
-#     input a,
-#     input b,
-#     output c
-# );
-# """
-# MODULE_DEFINITION = """
-#    always @ (posedge clk) begin
-#       ...
-#    end
-# """
-################################################################################
 
 
 class VerilogModule(abc.ABC):
@@ -39,27 +21,37 @@ class VerilogModule(abc.ABC):
     @abc.abstractmethod
     def __init__(self, config: Config, module_name: str):
         self.config = config
-        self.verilog = self.generate_module()
-        self.module_name = module_name
-        self.out_file = self.module_name + '.v'
-        self.write(self.out_file)
         self.children_modules: ty.List[VerilogModule] = []
+        self.config.reset_tlen()
+        self.module_verilog = self.generate_module()
+        self.module_name = module_name
+        self.mod_out_file = self.module_name + '.v'
+        self.tb_out_file = 'tb_' + self.module_name + '.v'
+        self.write_module(self.mod_out_file)
 
-    def write(self, fname: str):
+    def write_module(self, fname: str):
         """
         Writes the verilog definition of each module to its own
         verilog *.v file.
         """
         with open(self.config.MODULE_PATH / fname, 'w') as f:
             f.write(self.config.HEADER)
-            # TODO: Write module name/io here
-            f.write(self.verilog)
-            # TODO: Write endmodule
-            # f.write(self.config.ENDMODULE)
+            f.write(self.module_verilog)
+
+    def write_testbench(self, fname: str):
+        """
+        Writes the verilog definition of each module to its own
+        verilog *.v file.
+        """
+        tb_verilog = self.generate_testbench()
+        with open(self.config.TBS_PATH / fname, 'w') as f:
+            f.write(self.config.HEADER)
+            f.write(tb_verilog)
 
     @abc.abstractmethod
     def generate_module(self) -> str:
-        """A function which generates the code for a verilog module. In other
+        """
+        A function which generates the code for a verilog module. In other
         words, this function should declare the verilog module. It is NOT to be
         used to generate an instance of a verilog module.
 
@@ -85,5 +77,18 @@ class VerilogModule(abc.ABC):
         ```
         :return: The verilog code that represents a single instance of the
             verilog module.
+        :rtype: str
+        """
+
+    @abc.abstractmethod
+    def generate_testbench(self):
+        """
+        A function to be used to generate testbenches for each module.
+
+        This will create modules for testing the verilog modules so that each
+        design can be independently verified.
+
+        :return: The testbench verilog code that will test each module for
+            functionality.
         :rtype: str
         """

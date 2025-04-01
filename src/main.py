@@ -10,6 +10,7 @@ from pathlib import Path
 from utils.argparser import parse_arguments, set_config
 from utils.config import Config
 from utils.tcl_generator import TCLGenerator
+from utils.functional import generate_all_testbenches
 from verilog_gen.integer.systolic_array import SystolicArray
 from verilog_gen.spiking.spiking_systolic_array import SpikingSystolicArray
 from verilog_gen.spiking.activation_unit import ActivationUnit
@@ -24,6 +25,8 @@ def match_task(task: str, config: Config):
         systolic_array = SpikingSystolicArray(config)
     else:
         raise ValueError(f'Predefined generation task {task} not valid.')
+    # Generate all testbenches
+    generate_all_testbenches(systolic_array)
     # Generate TCL Script
     TCLGenerator(systolic_array, config).write()
 

@@ -86,3 +86,6 @@ class IntegerMACPE(VerilogModule):
             )
 
         return instance_string
+
+    def generate_testbench(self):
+        return ''

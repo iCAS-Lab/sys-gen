@@ -92,3 +92,41 @@ class MUX(VerilogModule):
             + f'\t);\n'
         )
         return instance_string
+
+    def generate_testbench(self):
+        mux_generator = MUX(config=self.config)
+        verilog = ''
+        verilog += self.config.line(f'module {self.module_name};')
+        self.config.tinc()
+        verilog += self.config.cline('Define IO')
+        verilog += self.config.line(f'reg {self.config.CLK};')
+        verilog += self.config.line(f'reg {self.config.RSTN};')
+        for i in range(self.config.ROWS):
+            for j in range(self.config.COLS):
+                verilog += self.config.line(
+                    f'reg signed [{self.config.DATA_WIDTH-1}:0] '
+                    + f'in_data_{i}_{j};', 1
+                )
+        verilog += self.config.line(
+            f'wire [{self.config.DATA_WIDTH-1}:0] out_data;'
+        )
+        verilog += self.config.cline('Random Seed for testing')
+        verilog += self.config.line(
+            f'integer seed = {self.config.VERILOG_SEED};'
+        )
+        verilog += self.config.cline('Define instance of MUX and Connect IO')
+        verilog += mux_generator.generate_instance(in_data_prefix='in_data')
+        verilog += '\n' + self.config.cline('Define Clock')
+        verilog += self.config.line(
+            f'always #{self.config.CLK_T} {self.config.CLK} '
+            + f' = ~{self.config.CLK};'
+        )
+        verilog += '\n' + self.config.cline('Define Signal Behavior')
+        verilog += self.config.indent(f"""
+        initial begin
+          {self.config.CLK} <= 0;
+          {self.config.RSTN} <= 0;
+        end
+        """)
+        verilog += self.config.ENDMODULE
+        return verilog

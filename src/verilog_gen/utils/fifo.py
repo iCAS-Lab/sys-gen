@@ -97,3 +97,6 @@ class FIFO(VerilogModule):
             + f'\t);\n'
         )
         return instance_string
+
+    def generate_testbench(self):
+        return ''

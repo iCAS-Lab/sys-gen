@@ -93,3 +93,6 @@ class DEMUX(VerilogModule):
         instance_string = instance_string[:-2] + '\n'
         instance_string += f'\t);\n'
         return instance_string
+
+    def generate_testbench(self):
+        return ''
