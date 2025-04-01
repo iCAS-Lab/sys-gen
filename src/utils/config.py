@@ -30,7 +30,9 @@ class Config:
         # Paths
         self._OUT_PATH = Path.cwd() / 'experiment'
         self.MODULE_PATH = self.OUT_PATH / 'rtl'
+        self.TBS_PATH = self.OUT_PATH / 'tbs'
         self.paths = [
+            'tbs',
             'rtl',
             'work',
             'logs',
@@ -119,6 +121,7 @@ class Config:
     def OUT_PATH(self, new_path: Path):
         self._OUT_PATH = new_path
         self.MODULE_PATH = self.OUT_PATH / 'rtl'
+        self.TBS_PATH = self.OUT_PATH / 'tbs'
 
     def init_paths(self):
         """Cleanup directory structure and create directories for generated

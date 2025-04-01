@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PARENT_DIR="./experiements"
+PARENT_DIR="./experiments"
 FIFO_DEPTH=8
 
 rm -rf $PARENT_DIR
