@@ -70,27 +70,12 @@ class VerilogTestbench(abc.ABC):
         """
 
     @abc.abstractmethod
-    def generate_instance(self):
-        """
-        A function to be used to generate instances of a verilog module.
+    def generate_test(self) -> str:
+        """The code to generate the testbench verilog code for a specific
+        module. 
 
-        For example, if we have a multiply-accumulate i.e. 'mac' unit
-        implemented in verilog, then this function should return a string
-        which creates a instance of the 'mac' unit. Example verilog:
-
-        ```verilog
-        mac example_mac_unit (
-            .in_a (a),
-            .in_b (b),
-            .out_c (c)
-        );
-        ```
-        :return: The verilog code that represents a single instance of the
-            verilog module.
+        :return: The code for testing the respective module which includes
+            defining the clk, all of the connecting wires/registers, and
+            the input signals consisting of different values.
         :rtype: str
-        """
-
-    @abc.abstractmethod
-    def generate_test(self):
-        """_summary_
         """
