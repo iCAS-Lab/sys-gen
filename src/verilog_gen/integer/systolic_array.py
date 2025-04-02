@@ -9,12 +9,11 @@ from verilog_gen.integer.integer_mac_pe import IntegerMACPE
 from verilog_gen.utils.mux import MUX
 from verilog_gen.utils.demux import DEMUX
 ################################################################################
-MODULE_NAME = 'systolic_array'
-################################################################################
 
 
 class SystolicArray(VerilogModule):
     def __init__(self, config: Config):
+        self.module_name = 'systolic_array'
         self.row_demux_select_width = len(bin(config.ROWS)[2:]) - 1
         self.col_demux_select_width = len(bin(config.COLS)[2:]) - 1
         self.mux_select_width = len(bin(config.ROWS*config.COLS)[2:]) - 1
@@ -28,7 +27,7 @@ class SystolicArray(VerilogModule):
 
         super().__init__(
             config=config,
-            module_name=f'{MODULE_NAME}_{config.ROWS}x{config.COLS}'
+            module_name=f'{self.module_name}_{config.ROWS}x{config.COLS}'
         )
 
         self.children_modules = [
@@ -42,7 +41,7 @@ class SystolicArray(VerilogModule):
     def generate_definition(self):
         # Module definition
         verilog = (
-            f'module {MODULE_NAME}_{self.config.ROWS}x{self.config.COLS} '
+            f'module {self.module_name}_{self.config.ROWS}x{self.config.COLS} '
             + f'#(parameter DEPTH={self.config.FIFO_DEPTH}, '
             + f'DATA_WIDTH={self.config.DATA_WIDTH}, '
             + f'OUT_SELECT_WIDTH={self.mux_select_width}) (\n'

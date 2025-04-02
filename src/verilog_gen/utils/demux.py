@@ -95,4 +95,54 @@ class DEMUX(VerilogModule):
         return instance_string
 
     def generate_testbench(self):
-        return ''
+        demux_generator = DEMUX(config=self.config, num_out=self.num_out)
+        verilog = ''
+        verilog += self.config.line(f'module {self.tb_name};')
+        self.config.tinc()
+        verilog += self.config.cline('Define IO')
+        verilog += self.config.line(f'reg {self.config.CLK};')
+        verilog += self.config.line(f'reg {self.config.RSTN};')
+        verilog += self.config.line(f'reg [{self.select_width-1}:0] select;')
+        verilog += self.config.line(
+            f'reg [{self.config.DATA_WIDTH-1}:0] input_data;'
+        )
+        verilog += self.config.line(
+            f'wire [{self.config.DATA_WIDTH-1}:0] out_data '
+            + f'[0:{self.config.ROWS-1}];'
+        )
+        for i in range(self.config.ROWS):
+            verilog += self.config.line(
+                f'wire [{self.config.DATA_WIDTH-1}:0] '
+                + f'out_data_{i} = out_data[{i}];', 1
+            )
+        verilog += demux_generator.generate_instance(
+            in_data_wire_names='input_data',
+            out_data_prefix='out_data'
+        )
+        verilog += self.config.line('initial begin')
+        self.config.tinc()
+        verilog += self.config.line(
+            f'$monitor("Time=%0t | select=%b -> input_data=%b %s", '
+            + f'$time, select, input_data, (out_data[select] == input_data) '
+            + f'? "PASS" : "FAIL");'
+        )
+        selecter = 0
+        counter = 0
+        for i in range(self.config.ROWS):
+            binary = bin(counter)[2:]
+            select_bin = '0'*(self.select_width - len(binary)) + binary
+            binary = '0'*(self.config.DATA_WIDTH - len(binary)) + binary
+            verilog += self.config.line(
+                f'inputs = {self.config.DATA_WIDTH}\'b{binary}; '
+                + f'select = {self.select_width}\'b{select_bin}; #10;'
+            )
+            counter += 1
+            selecter += 1
+        # If the precision of each input is lower than the select width i.e.
+        # the number of of inputs exceeds the precision of each, then we
+        # must duplicate some of our values to test the MUX.
+        # Here we shift start each row with its corresponding index and
+        # increase the values by 1
+        if self.config.DATA_WIDTH < self.select_width:
+            counter = counter % min(self.config.COLS, self.config.ROWS) + 1
+        return verilog
