@@ -96,17 +96,24 @@ class MUX(VerilogModule):
     def generate_testbench(self):
         mux_generator = MUX(config=self.config)
         verilog = ''
-        verilog += self.config.line(f'module {self.module_name};')
+        verilog += self.config.line(f'module {self.tb_name};')
         self.config.tinc()
         verilog += self.config.cline('Define IO')
         verilog += self.config.line(f'reg {self.config.CLK};')
         verilog += self.config.line(f'reg {self.config.RSTN};')
+        verilog += self.config.line(f'reg [{self.select_width-1}:0] select;')
+        verilog += self.config.line(
+            f'reg [{self.config.DATA_WIDTH-1}:0] inputs '
+            + f'[0:{self.config.ROWS*self.config.COLS}];'
+        )
+        counter = 0
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
                 verilog += self.config.line(
-                    f'reg signed [{self.config.DATA_WIDTH-1}:0] '
-                    + f'in_data_{i}_{j};', 1
+                    f'wire [{self.config.DATA_WIDTH-1}:0] '
+                    + f'in_data_{i}_{j} = inputs[{counter}];', 1
                 )
+                counter += 1
         verilog += self.config.line(
             f'wire [{self.config.DATA_WIDTH-1}:0] out_data;'
         )
@@ -115,18 +122,50 @@ class MUX(VerilogModule):
             f'integer seed = {self.config.VERILOG_SEED};'
         )
         verilog += self.config.cline('Define instance of MUX and Connect IO')
-        verilog += mux_generator.generate_instance(in_data_prefix='in_data')
-        verilog += '\n' + self.config.cline('Define Clock')
-        verilog += self.config.line(
-            f'always #{self.config.CLK_T} {self.config.CLK} '
-            + f' = ~{self.config.CLK};'
+        verilog += mux_generator.generate_instance(
+            in_data_prefix='in_data',
+            select_name='select',
+            out_data_name='out_data'
         )
-        verilog += '\n' + self.config.cline('Define Signal Behavior')
-        verilog += self.config.indent(f"""
-        initial begin
-          {self.config.CLK} <= 0;
-          {self.config.RSTN} <= 0;
-        end
-        """)
+        verilog += '\n' + self.config.cline('Run Test Cases')
+        verilog += self.config.line('initial begin')
+        self.config.tinc()
+        verilog += self.config.line(
+            f'$monitor("Time=%0t | select=%b -> out_data=%b %s", '
+            + f'$time, select, out_data, (out_data == inputs[select]) '
+            + f'? "PASS" : "FAIL");'
+        )
+        indexer = 0
+        counter = 0
+        for i in range(self.config.ROWS):
+            for j in range(self.config.COLS):
+                binary = bin(counter)[2:]
+                binary = '0'*(self.config.DATA_WIDTH - len(binary)) + binary
+                verilog += self.config.line(
+                    f'inputs[{indexer}] = '
+                    + f'{self.config.DATA_WIDTH}\'b{binary};'
+                )
+                counter += 1
+                indexer += 1
+            # If the precision of each input is lower than the select width i.e.
+            # the number of of inputs exceeds the precision of each, then we
+            # must duplicate some of our values to test the MUX.
+            # Here we shift start each row with its corresponding index and
+            # increase the values by 1
+            if self.config.DATA_WIDTH < self.select_width:
+                counter -= self.config.COLS - 1
+        verilog += '\n'
+        counter = 0
+        for i in range(self.config.ROWS):
+            for j in range(self.config.COLS):
+                binary = bin(counter)[2:]
+                binary = '0'*(self.select_width - len(binary)) + binary
+                verilog += self.config.line(
+                    f'select = {self.select_width}\'b{binary}; #10;'
+                )
+                counter += 1
+        verilog += self.config.line('$finish;')
+        self.config.tdec()
+        verilog += self.config.line('end')
         verilog += self.config.ENDMODULE
         return verilog

@@ -25,8 +25,9 @@ class VerilogModule(abc.ABC):
         self.config.reset_tlen()
         self.module_verilog = self.generate_module()
         self.module_name = module_name
+        self.tb_name = 'tb_' + self.module_name
         self.mod_out_file = self.module_name + '.v'
-        self.tb_out_file = 'tb_' + self.module_name + '.v'
+        self.tb_out_file = self.tb_name + '.v'
         self.write_module(self.mod_out_file)
 
     def write_module(self, fname: str):
