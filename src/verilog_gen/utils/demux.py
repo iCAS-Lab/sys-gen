@@ -152,4 +152,7 @@ class DEMUX(VerilogModule):
             ):
                 offset += 1
                 counter = offset % max_data_val
+        self.config.tdec()
+        verilog += self.config.line('end')
+        verilog += self.config.ENDMODULE
         return verilog
