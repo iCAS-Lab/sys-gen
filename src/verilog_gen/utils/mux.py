@@ -135,8 +135,10 @@ class MUX(VerilogModule):
             + f'$time, select, out_data, (out_data == inputs[select]) '
             + f'? "PASS" : "FAIL");'
         )
+        offset = 0
         selecter = 0
         counter = 0
+        max_data_val = 2**self.config.DATA_WIDTH
         for i in range(self.config.ROWS):
             for j in range(self.config.COLS):
                 binary = bin(counter)[2:]
@@ -147,13 +149,17 @@ class MUX(VerilogModule):
                 )
                 counter += 1
                 selecter += 1
-            # If the precision of each input is lower than the select width i.e.
-            # the number of of inputs exceeds the precision of each, then we
-            # must duplicate some of our values to test the MUX.
-            # Here we shift start each row with its corresponding index and
-            # increase the values by 1
-            if self.config.DATA_WIDTH < self.select_width:
-                counter = counter % min(self.config.COLS, self.config.ROWS) + 1
+                # If the precision of each input is lower than the select width i.e.
+                # the number of of inputs exceeds the precision of each, then we
+                # must duplicate some of our values to test the MUX.
+                # Here we shift start each row with its corresponding index and
+                # increase the values by 1
+                if (
+                    self.config.DATA_WIDTH < self.select_width and
+                    counter == max_data_val
+                ):
+                    offset += 1
+                    counter = offset % max_data_val
         verilog += '\n'
         counter = 0
         for i in range(self.config.ROWS):
