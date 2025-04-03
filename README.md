@@ -109,3 +109,18 @@ In the future, we hope to further develop this pipeline to deploy the synthesize
 - Add systolic arrays with different dataflows (IS and WS)
 - Currently, the outputs of the PEs is truncated to the same input bitwidth. Need to parameterize this.
 - Make the code interoperable with [SCALE Sim v2](https://github.com/scalesim-project/scale-sim-v2)
+- 
+
+## Citation
+
+Please cite this tool using the following paper:
+
+### Text:
+```
+TBA
+```
+
+### BibTeX:
+```
+TBA
+```
