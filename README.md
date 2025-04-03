@@ -1,6 +1,8 @@
 # sys-gen: An Arbitrary Precision Systolic Array Generator
 
-SYS-GEN or Systolic Array Generator is a Python tool that generates Register-Transfer Level (RTL) code in the Verilog High Description Language (HDL) for implementing systolic arrays of arbitrary bit precision. The Verilog code is synthesizeable in tools such as Synopsys Design Compiler and in the Vitis/Vivado AMD-Xilinx tools. Additionally, the tool dynamically generates TCL scripts for easily running different synthesis routines.
+**SYS-GEN** or <ins>**SYS**</ins>tolic Array <ins>**GEN**</ins>erator is a Python tool that generates Register-Transfer Level (RTL) code in the Verilog High Description Language (HDL) for implementing systolic arrays of arbitrary bit precision. The Verilog code is synthesizeable in tools such as Synopsys Design Compiler and in the Vitis/Vivado AMD-Xilinx tools. Additionally, the tool dynamically generates TCL scripts for easily running different synthesis routines.
+
+In the future, SYS-GEN will support more than systolic arrays. It will help define more digital designs after we build up the basic logic modules. At this point, **SYS-GEN** will be migrated from <ins>**SYS**</ins>tolic Array <ins>**GEN**</ins>erator to a digital <ins>**SYS**</ins>tem <ins>**GEN**</ins>erator. 
 
 ## Use:
 
